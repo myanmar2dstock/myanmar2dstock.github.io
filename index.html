@@ -1,3234 +1,3415 @@
-<!DOCTYPE html><html lang="my">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Myanmar 2D Stock</title><style>
-*{
- box-sizing:border-box;
- margin:0;
- padding:0;
- font-family:Arial,"Myanmar Text",sans-serif
-}
-
-body{
- background:#f4f7fb;
- color:#172033
-}
-
-.header{
- background:linear-gradient(135deg,#0757d9,#12a7ff);
+<!DOCTYPE html>  <html lang="my">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Myanmar 2D Stock</title>  <style>  
+*{  
+ box-sizing:border-box;  
+ margin:0;  
+ padding:0;  
+ font-family:Arial,"Myanmar Text",sans-serif  
+}  
+  
+body{  
+ background:#f4f7fb;  
+ color:#172033  
+}  
+  
+.header{  
+ background:linear-gradient(135deg,#0757d9,#12a7ff);  
+ color:white;  
+ padding:22px 18px 28px;  
+ border-radius:0 0 28px 28px;  
+ box-shadow:0 5px 18px rgba(0,0,0,.15)  
+}  
+  
+.top{  
+ display:flex;  
+ justify-content:space-between;  
+ align-items:center  
+}  
+  
+.logo{  
+ font-size:21px;  
+ font-weight:bold  
+}  
+  
+.bell{  
+ font-size:23px  
+}  
+  
+.date{  
+ margin-top:8px;  
+ opacity:.9;  
+ font-size:14px  
+}  
+  
+  
+/* =========================  
+   PREMIUM 2D LIVE  
+========================= */  
+  
+.live-box{  
+ background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);  
+ margin:-15px 15px 20px;  
+ padding:21px 15px 18px;  
+ border-radius:26px;  
+ box-shadow:0 10px 30px rgba(7,87,217,.13);  
+ position:relative;  
+ border:1px solid rgba(7,87,217,.07);  
+ overflow:hidden  
+}  
+  
+.live-box::before{  
+ content:"";  
+ position:absolute;  
+ width:180px;  
+ height:180px;  
+ border-radius:50%;  
+ background:rgba(18,167,255,.07);  
+ top:-100px;  
+ right:-70px;  
+ pointer-events:none  
+}  
+  
+.live-box::after{  
+ content:"";  
+ position:absolute;  
+ width:130px;  
+ height:130px;  
+ border-radius:50%;  
+ background:rgba(7,87,217,.05);  
+ bottom:-80px;  
+ left:-50px;  
+ pointer-events:none  
+}  
+  
+.live-title{  
+ position:relative;  
+ z-index:2;  
+ text-align:center;  
+ font-size:20px;  
+ font-weight:bold;  
+ color:#0757d9;  
+ margin-bottom:7px  
+}  
+  
+.live-date{  
+ position:relative;  
+ z-index:2;  
+ text-align:center;  
+ color:#687386;  
+ font-size:14px;  
+ font-weight:600;  
+ margin-bottom:4px  
+}  
+  
+.live-clock{  
+ position:relative;  
+ z-index:2;  
+ text-align:center;  
+ color:#0757d9;  
+ font-size:15px;  
+ font-weight:bold;  
+ margin-bottom:14px  
+}  
+  
+.live{  
+ display:flex;  
+ gap:12px;  
+ position:relative;  
+ z-index:2  
+}  
+  
+.live-card{  
+ flex:1;  
+ text-align:center;  
+ padding:17px 8px 16px;  
+ border-radius:23px;  
+ color:white;  
+ position:relative;  
+ overflow:hidden;  
+ box-shadow:0 9px 22px rgba(0,0,0,.14);  
+ border:1px solid rgba(255,255,255,.25);  
+ transition:transform .2s,box-shadow .2s  
+}  
+  
+.live-card::before{  
+ content:"";  
+ position:absolute;  
+ width:110px;  
+ height:110px;  
+ border-radius:50%;  
+ background:rgba(255,255,255,.13);  
+ top:-65px;  
+ right:-45px;  
+ pointer-events:none  
+}  
+  
+.live-card::after{  
+ content:"";  
+ position:absolute;  
+ width:80px;  
+ height:80px;  
+ border-radius:50%;  
+ background:rgba(255,255,255,.08);  
+ bottom:-45px;  
+ left:-30px;  
+ pointer-events:none  
+}  
+  
+.live-card:active{  
+ transform:scale(.97);  
+ box-shadow:0 5px 14px rgba(0,0,0,.12)  
+}  
+  
+.time1{  
+ background:linear-gradient(145deg,#ff326d 0%,#ff625f 55%,#ff8964 100%)  
+}  
+  
+.time2{  
+ background:linear-gradient(145deg,#0757d9 0%,#087cf0 55%,#00c0ff 100%)  
+}  
+  
+.time{  
+ position:relative;  
+ z-index:2;  
+ font-size:15px;  
+ font-weight:800;  
+ letter-spacing:.3px  
+}  
+  
+.value{  
+ position:relative;  
+ z-index:2;  
+ display:flex;  
+ align-items:center;  
+ justify-content:center;  
+ min-height:64px;  
+ font-size:58px;  
+ line-height:1;  
+ font-weight:900;  
+ margin-top:10px;  
+ letter-spacing:4px;  
+ color:#fff;  
+ text-shadow:  
+   0 3px 0 rgba(0,0,0,.10),  
+   0 5px 14px rgba(0,0,0,.20);  
+ font-family:Arial,"Myanmar Text",sans-serif;  
+ font-variant-numeric:tabular-nums  
+}  
+  
+.status{  
+ position:relative;  
+ z-index:2;  
+ display:inline-flex;  
+ align-items:center;  
+ justify-content:center;  
+ margin-top:9px;  
+ background:rgba(255,255,255,.18);  
+ border:1px solid rgba(255,255,255,.22);  
+ padding:5px 11px;  
+ border-radius:20px;  
+ font-size:10px;  
+ font-weight:800;  
+ letter-spacing:.7px;  
+ backdrop-filter:blur(5px);  
+ -webkit-backdrop-filter:blur(5px)  
+}  
+  
+  
+/* =========================  
+   MENU  
+========================= */  
+  
+.section-title{  
+ font-size:19px;  
+ font-weight:bold;  
+ margin:10px 18px 14px  
+}  
+  
+.menu{  
+ display:grid;  
+ grid-template-columns:repeat(2,1fr);  
+ gap:13px;  
+ padding:0 15px  
+}  
+  
+.item{  
+ background:white;  
+ border-radius:18px;  
+ padding:19px 13px;  
+ box-shadow:0 4px 15px rgba(0,0,0,.07);  
+ cursor:pointer  
+}  
+  
+.item:active{  
+ transform:scale(.97)  
+}  
+  
+.icon{  
+ width:44px;  
+ height:44px;  
+ border-radius:14px;  
+ display:flex;  
+ align-items:center;  
+ justify-content:center;  
+ font-size:24px;  
+ margin-bottom:10px;  
+ background:#eaf3ff  
+}  
+  
+.item h3{  
+ font-size:15px;  
+ margin-bottom:4px  
+}  
+  
+.item p{  
+ color:#7b8495;  
+ font-size:11px  
+}  
+  
+  
+/* =========================  
+   SUGGESTION  
+========================= */  
+  
+.suggestion{  
+ margin:20px 15px 90px;  
+ padding:18px;  
+ border-radius:20px;  
+ background:linear-gradient(135deg,#172033,#34445f);  
+ color:white  
+}  
+  
+.suggestion h3{  
+ margin-bottom:8px  
+}  
+  
+.suggestion p{  
+ font-size:13px;  
+ line-height:1.7;  
+ opacity:.9  
+}  
+  
+  
+/* =========================  
+   BOTTOM NAV  
+========================= */  
+  
+.bottom{  
+ position:fixed;  
+ bottom:0;  
+ left:0;  
+ right:0;  
+ max-width:600px;  
+ margin:auto;  
+ height:68px;  
+ background:white;  
+ display:flex;  
+ justify-content:space-around;  
+ align-items:center;  
+ box-shadow:0 -5px 20px rgba(0,0,0,.1);  
+ border-radius:22px 22px 0 0;  
+ z-index:100  
+}  
+  
+.nav{  
+ text-align:center;  
+ color:#8a93a3;  
+ font-size:11px;  
+ cursor:pointer;  
+ min-width:60px  
+}  
+  
+.nav.active{  
+ color:#0757d9;  
+ font-weight:bold  
+}  
+  
+.nav-icon{  
+ font-size:21px;  
+ margin-bottom:3px  
+}  
+  
+  
+/* =========================  
+   PAGES  
+========================= */  
+  
+.image-page,  
+.page{  
+ display:none;  
+ position:fixed;  
+ inset:0;  
+ background:#f4f7fb;  
+ overflow-y:auto;  
+ padding-bottom:90px  
+}  
+  
+.image-page{  
+ z-index:99999;  
+ padding-bottom:30px  
+}  
+  
+.page{  
+ z-index:99998  
+}  
+  
+.image-header,  
+.page-header{  
+ background:linear-gradient(135deg,#0757d9,#12a7ff);  
+ color:white;  
+ padding:18px 15px;  
+ position:sticky;  
+ top:0;  
+ z-index:5  
+}  
+  
+.back-btn{
+ border:1px solid rgba(255,255,255,.55);
+ background:rgba(255,255,255,.14);
  color:white;
- padding:22px 18px 28px;
- border-radius:0 0 28px 28px;
- box-shadow:0 5px 18px rgba(0,0,0,.15)
-}
-
-.top{
- display:flex;
- justify-content:space-between;
- align-items:center
-}
-
-.logo{
- font-size:21px;
- font-weight:bold
-}
-
-.bell{
- font-size:23px
-}
-
-.date{
- margin-top:8px;
- opacity:.9;
- font-size:14px
-}
-
-/* =========================
-   PREMIUM 2D LIVE
-========================= */
-
-.live-box{
- background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
- margin:-15px 15px 20px;
- padding:21px 15px 18px;
- border-radius:26px;
- box-shadow:0 10px 30px rgba(7,87,217,.13);
- position:relative;
- border:1px solid rgba(7,87,217,.07);
- overflow:hidden
-}
-
-.live-box::before{
- content:"";
- position:absolute;
- width:180px;
- height:180px;
- border-radius:50%;
- background:rgba(18,167,255,.07);
- top:-100px;
- right:-70px;
- pointer-events:none
-}
-
-.live-box::after{
- content:"";
- position:absolute;
- width:130px;
- height:130px;
- border-radius:50%;
- background:rgba(7,87,217,.05);
- bottom:-80px;
- left:-50px;
- pointer-events:none
-}
-
-.live-title{
- position:relative;
- z-index:2;
- text-align:center;
- font-size:20px;
- font-weight:bold;
- color:#0757d9;
- margin-bottom:7px
-}
-
-.live-date{
- position:relative;
- z-index:2;
- text-align:center;
- color:#687386;
- font-size:14px;
- font-weight:600;
- margin-bottom:4px
-}
-
-.live-clock{
- position:relative;
- z-index:2;
- text-align:center;
- color:#0757d9;
- font-size:15px;
- font-weight:bold;
- margin-bottom:14px
-}
-
-.live{
- display:flex;
- gap:12px;
- position:relative;
- z-index:2
-}
-
-.live-card{
- flex:1;
- text-align:center;
- padding:17px 8px 16px;
- border-radius:23px;
- color:white;
- position:relative;
- overflow:hidden;
- box-shadow:0 9px 22px rgba(0,0,0,.14);
- border:1px solid rgba(255,255,255,.25);
- transition:transform .2s,box-shadow .2s
-}
-
-.live-card::before{
- content:"";
- position:absolute;
- width:110px;
- height:110px;
- border-radius:50%;
- background:rgba(255,255,255,.13);
- top:-65px;
- right:-45px;
- pointer-events:none
-}
-
-.live-card::after{
- content:"";
- position:absolute;
- width:80px;
- height:80px;
- border-radius:50%;
- background:rgba(255,255,255,.08);
- bottom:-45px;
- left:-30px;
- pointer-events:none
-}
-
-.live-card:active{
- transform:scale(.97);
- box-shadow:0 5px 14px rgba(0,0,0,.12)
-}
-
-.time1{
- background:linear-gradient(145deg,#ff326d 0%,#ff625f 55%,#ff8964 100%)
-}
-
-.time2{
- background:linear-gradient(145deg,#0757d9 0%,#087cf0 55%,#00c0ff 100%)
-}
-
-.time{
- position:relative;
- z-index:2;
- font-size:15px;
- font-weight:800;
- letter-spacing:.3px
-}
-
-.value{
- position:relative;
- z-index:2;
- display:flex;
- align-items:center;
- justify-content:center;
- min-height:64px;
- font-size:58px;
- line-height:1;
- font-weight:900;
- margin-top:10px;
- letter-spacing:4px;
- color:#fff;
- text-shadow:
-   0 3px 0 rgba(0,0,0,.10),
-   0 5px 14px rgba(0,0,0,.20);
- font-family:Arial,"Myanmar Text",sans-serif;
- font-variant-numeric:tabular-nums
-}
-
-.status{
- position:relative;
- z-index:2;
+ min-width:82px;
+ height:40px;
+ padding:0 16px;
+ margin:0 8px 10px 0;
+ cursor:pointer;
  display:inline-flex;
  align-items:center;
  justify-content:center;
- margin-top:9px;
- background:rgba(255,255,255,.18);
- border:1px solid rgba(255,255,255,.22);
- padding:5px 11px;
- border-radius:20px;
- font-size:10px;
- font-weight:800;
- letter-spacing:.7px;
- backdrop-filter:blur(5px);
- -webkit-backdrop-filter:blur(5px)
-}
-
-/* =========================
-   MENU
-========================= */
-
-.section-title{
- font-size:19px;
- font-weight:bold;
- margin:10px 18px 14px
-}
-
-.menu{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:13px;
- padding:0 15px
-}
-
-.item{
- background:white;
- border-radius:18px;
- padding:19px 13px;
- box-shadow:0 4px 15px rgba(0,0,0,.07);
- cursor:pointer
-}
-
-.item:active{
- transform:scale(.97)
-}
-
-.icon{
- width:44px;
- height:44px;
- border-radius:14px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:24px;
- margin-bottom:10px;
- background:#eaf3ff
-}
-
-.item h3{
- font-size:15px;
- margin-bottom:4px
-}
-
-.item p{
- color:#7b8495;
- font-size:11px
-}
-
-/* =========================
-   SUGGESTION
-========================= */
-
-.suggestion{
- margin:20px 15px 90px;
- padding:18px;
- border-radius:20px;
- background:linear-gradient(135deg,#172033,#34445f);
- color:white
-}
-
-.suggestion h3{
- margin-bottom:8px
-}
-
-.suggestion p{
- font-size:13px;
- line-height:1.7;
- opacity:.9
-}
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom{
- position:fixed;
- bottom:0;
- left:0;
- right:0;
- max-width:600px;
- margin:auto;
- height:68px;
- background:white;
- display:flex;
- justify-content:space-around;
- align-items:center;
- box-shadow:0 -5px 20px rgba(0,0,0,.1);
- border-radius:22px 22px 0 0;
- z-index:100
-}
-
-.nav{
- text-align:center;
- color:#8a93a3;
- font-size:11px;
- cursor:pointer;
- min-width:60px
-}
-
-.nav.active{
- color:#0757d9;
- font-weight:bold
-}
-
-.nav-icon{
- font-size:21px;
- margin-bottom:3px
-}
-
-/* =========================
-   PAGES
-========================= */
-
-.image-page,
-.page{
- display:none;
- position:fixed;
- inset:0;
- background:#f4f7fb;
- overflow-y:auto;
- padding-bottom:90px
-}
-
-.image-page{
- z-index:99999;
- padding-bottom:30px
-}
-
-.page{
- z-index:99998
-}
-
-.image-header,
-.page-header{
- background:linear-gradient(135deg,#0757d9,#12a7ff);
- color:white;
- padding:18px 15px;
- position:sticky;
- top:0;
- z-index:5
-}
-
-.back-btn{
- border:none;
- background:none;
- color:white;
- width:42px;
- height:42px;
- padding:0;
- margin:0 6px 0 0;
- cursor:pointer;
- display:flex;
- align-items:center;
- justify-content:center;
  position:relative;
-}
-
-.back-arrow{
- width:22px;
- height:2.5px;
- background:white;
- border-radius:2px;
- display:block;
- position:relative;
-}
-
-.back-arrow::before,
-.back-arrow::after{
- content:"";
- position:absolute;
- width:13px;
- height:2.5px;
- background:white;
- border-radius:2px;
- left:-1px;
-}
-
-.back-arrow::before{
- top:-4.5px;
- transform:rotate(-45deg);
- transform-origin:left center;
-}
-
-.back-arrow::after{
- top:4.5px;
- transform:rotate(45deg);
- transform-origin:left center;
-}
-
-.image-title,
-.page-title{
- font-size:22px;
- font-weight:700
-}
-
-.image-subtitle,
-.page-subtitle{
- font-size:13px;
- opacity:.9;
- margin-top:4px
-}
-
-.image-list,
-.page-content{
- padding:15px
-}
-
-.image-card,
-.history-card,
-.three-card,
-.suggestion-card,
-.setting-card{
- background:white;
- border-radius:16px;
- margin-bottom:15px;
- padding:15px;
- box-shadow:0 4px 15px rgba(0,0,0,.07)
-}
-
-.image-card{
- padding:8px;
- overflow:hidden
-}
-
-.image-card img{
- display:block;
- width:100%;
- height:auto;
- border-radius:11px;
- cursor:pointer
-}
-
-.empty-box{
- background:white;
- border-radius:16px;
- padding:30px 20px;
- text-align:center;
- color:#7b8495;
- margin-top:5px
-}
-
-.empty-icon{
- font-size:45px;
- margin-bottom:10px
-}
-
-/* =========================
-   FULL IMAGE
-========================= */
-
-#fullImagePage{
- display:none;
- position:fixed;
- inset:0;
- z-index:100000;
- background:rgba(0,0,0,.95);
- align-items:center;
- justify-content:center;
- padding:15px
-}
-
-#fullImage{
- max-width:100%;
- max-height:90vh;
- object-fit:contain;
- border-radius:8px
-}
-
-#closeFullImage{
- position:absolute;
- top:15px;
- right:15px;
- border:0;
- background:rgba(255,255,255,.2);
- color:white;
- width:42px;
- height:42px;
- border-radius:50%;
- font-size:25px
-}
-
-/* =========================
-   HISTORY
-========================= */
-
-.history-date{
- background:#172033;
- color:white;
- border-radius:11px;
- padding:11px 13px;
- font-weight:700;
- margin-bottom:8px
-}
-
-.result-row{
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:12px 4px;
- border-bottom:1px solid #edf0f5
-}
-
-.result-row:last-child{
- border-bottom:0
-}
-
-.result-time{
- font-size:13px;
- color:#687386
-}
-
-.result-label{
- font-size:12px;
- color:#8a93a3;
- margin-top:2px
-}
-
-.result-value{
- font-size:32px;
- font-weight:800;
- color:#0757d9
-}
-
-.three-date{
- font-size:14px;
- color:#687386;
- margin-bottom:8px
-}
-
-.three-value{
- text-align:center;
- font-size:48px;
- font-weight:900;
- color:#0757d9;
- padding:10px
-}
-
-/* =========================
-   SUGGESTION PAGE
-========================= */
-
-.suggestion-card h3{
+ border-radius:8px;
  font-size:16px;
- margin-bottom:8px
+ font-weight:600;
+ line-height:1;
+ box-sizing:border-box;
+}
+.back-btn:active{
+ transform:scale(.96);
+ background:rgba(255,255,255,.25);
+}
+.back-btn:active{
+ transform:scale(.94);
+}  
+  
+.image-title,  
+.page-title{  
+ font-size:22px;  
+ font-weight:700  
+}  
+  
+.image-subtitle,  
+.page-subtitle{  
+ font-size:13px;  
+ opacity:.9;  
+ margin-top:4px  
+}  
+  
+.image-list,  
+.page-content{  
+ padding:15px  
+}  
+  
+.image-card,  
+.history-card,  
+.three-card,  
+.suggestion-card,  
+.setting-card{  
+ background:white;  
+ border-radius:16px;  
+ margin-bottom:15px;  
+ padding:15px;  
+ box-shadow:0 4px 15px rgba(0,0,0,.07)  
+}  
+  
+.image-card{  
+ padding:8px;  
+ overflow:hidden  
+}  
+  
+.image-card img{  
+ display:block;  
+ width:100%;  
+ height:auto;  
+ border-radius:11px  
+}  
+  
+.empty-box{  
+ background:white;  
+ border-radius:16px;  
+ padding:30px 20px;  
+ text-align:center;  
+ color:#7b8495;  
+ margin-top:5px  
+}  
+  
+.empty-icon{  
+ font-size:45px;  
+ margin-bottom:10px  
+}  
+  
+  
+/* =========================  
+   FULL IMAGE  
+========================= */  
+  
+#fullImagePage{  
+ display:none;  
+ position:fixed;  
+ inset:0;  
+ z-index:100000;  
+ background:rgba(0,0,0,.95);  
+ align-items:center;  
+ justify-content:center;  
+ padding:15px  
+}  
+  
+#fullImage{  
+ max-width:100%;  
+ max-height:90vh;  
+ object-fit:contain;  
+ border-radius:8px  
+}  
+  
+#closeFullImage{  
+ position:absolute;  
+ top:15px;  
+ right:15px;  
+ border:0;  
+ background:rgba(255,255,255,.2);  
+ color:white;  
+ width:42px;  
+ height:42px;  
+ border-radius:50%;  
+ font-size:25px  
+}  
+  
+  
+/* =========================  
+   HISTORY  
+========================= */  
+  
+.history-date{  
+ background:#172033;  
+ color:white;  
+ border-radius:11px;  
+ padding:11px 13px;  
+ font-weight:700;  
+ margin-bottom:8px  
+}  
+  
+.result-row{  
+ display:flex;  
+ align-items:center;  
+ justify-content:space-between;  
+ padding:12px 4px;  
+ border-bottom:1px solid #edf0f5  
+}  
+  
+.result-row:last-child{  
+ border-bottom:0  
+}  
+  
+.result-time{  
+ font-size:13px;  
+ color:#687386  
+}  
+  
+.result-label{  
+ font-size:12px;  
+ color:#8a93a3;  
+ margin-top:2px  
+}  
+  
+.result-value{  
+ font-size:32px;  
+ font-weight:800;  
+ color:#0757d9  
+}  
+  
+.three-date{  
+ font-size:14px;  
+ color:#687386;  
+ margin-bottom:8px  
+}  
+  
+.three-value{  
+ text-align:center;  
+ font-size:48px;  
+ font-weight:900;  
+ color:#0757d9;  
+ padding:10px  
+}  
+  
+  
+/* =========================  
+   SUGGESTION PAGE  
+========================= */  
+  
+.suggestion-card h3{  
+ font-size:16px;  
+ margin-bottom:8px  
+}  
+  
+.suggestion-card p{  
+ font-size:14px;  
+ line-height:1.8;  
+ color:#4e596b;  
+ white-space:pre-wrap  
+}  
+  
+  
+/* =========================  
+   SETTINGS  
+========================= */  
+  
+.setting-row{  
+ display:flex;  
+ align-items:center;  
+ justify-content:space-between;  
+ padding:16px 5px;  
+ border-bottom:1px solid #edf0f5;  
+ cursor:pointer  
+}  
+  
+.setting-row:last-child{  
+ border-bottom:0  
+}  
+  
+.setting-left{  
+ display:flex;  
+ align-items:center;  
+ gap:12px  
+}  
+  
+.setting-icon{  
+ width:42px;  
+ height:42px;  
+ border-radius:13px;  
+ background:#eaf3ff;  
+ display:flex;  
+ align-items:center;  
+ justify-content:center;  
+ font-size:21px  
+}  
+  
+.setting-name{  
+ font-weight:700;  
+ font-size:14px  
+}  
+  
+.setting-desc{  
+ color:#8a93a3;  
+ font-size:11px;  
+ margin-top:3px  
+}  
+  
+.arrow{  
+ color:#8a93a3;  
+ font-size:20px  
+}  
+  
+.switch{  
+ width:48px;  
+ height:27px;  
+ border-radius:20px;  
+ background:#cbd2dc;  
+ position:relative;  
+ transition:.2s  
+}  
+  
+.switch::after{  
+ content:"";  
+ position:absolute;  
+ width:21px;  
+ height:21px;  
+ border-radius:50%;  
+ background:white;  
+ top:3px;  
+ left:3px;  
+ box-shadow:0 2px 5px rgba(0,0,0,.2);  
+ transition:.2s  
+}  
+  
+.switch.on{  
+ background:#0757d9  
+}  
+  
+.switch.on::after{  
+ left:24px  
+}  
+  
+  
+/* =========================  
+   MODAL  
+========================= */  
+  
+.modal{  
+ display:none;  
+ position:fixed;  
+ inset:0;  
+ background:rgba(0,0,0,.55);  
+ z-index:200000;  
+ align-items:center;  
+ justify-content:center;  
+ padding:20px  
+}  
+  
+.modal-box{  
+ background:white;  
+ width:100%;  
+ max-width:400px;  
+ border-radius:20px;  
+ padding:22px;  
+ box-shadow:0 10px 35px rgba(0,0,0,.25)  
+}  
+  
+.modal-title{  
+ font-size:20px;  
+ font-weight:bold;  
+ margin-bottom:15px  
+}  
+  
+.modal-text{  
+ font-size:14px;  
+ line-height:1.8;  
+ color:#4e596b  
+}  
+  
+.modal-btn{  
+ margin-top:18px;  
+ width:100%;  
+ border:0;  
+ background:#0757d9;  
+ color:white;  
+ padding:12px;  
+ border-radius:12px;  
+ font-size:15px;  
+ font-weight:bold  
+}  
+  
+.lang-btn{  
+ width:100%;  
+ padding:13px;  
+ margin-top:8px;  
+ border:1px solid #dfe4ec;  
+ background:white;  
+ border-radius:12px;  
+ font-size:14px;  
+ text-align:left  
+}  
+  
+.lang-btn.active{  
+ border:2px solid #0757d9;  
+ background:#eaf3ff  
+}  
+  
+  
+/* =========================  
+   CARD NOTIFICATION  
+========================= */  
+  
+#cardNotification{  
+ display:none;  
+ position:fixed;  
+ top:15px;  
+ left:15px;  
+ right:15px;  
+ max-width:570px;  
+ margin:auto;  
+ z-index:300000;  
+ background:white;  
+ border-radius:17px;  
+ padding:14px 15px;  
+ box-shadow:0 8px 30px rgba(0,0,0,.25);  
+ border-left:5px solid #0757d9;  
+ cursor:pointer  
+}  
+  
+.card-noti-inner{  
+ display:flex;  
+ align-items:center;  
+ gap:12px  
+}  
+  
+.card-noti-icon{  
+ width:44px;  
+ height:44px;  
+ min-width:44px;  
+ border-radius:13px;  
+ background:#eaf3ff;  
+ display:flex;  
+ align-items:center;  
+ justify-content:center;  
+ font-size:23px  
+}  
+  
+.card-noti-title{  
+ font-size:15px;  
+ font-weight:800;  
+ color:#172033  
+}  
+  
+.card-noti-text{  
+ font-size:12px;  
+ color:#687386;  
+ margin-top:3px  
+}  
+  
+.card-noti-close{  
+ margin-left:auto;  
+ border:0;  
+ background:none;  
+ font-size:22px;  
+ color:#8a93a3;  
+ padding:4px 6px  
+}  
+  
+  
+/* =========================  
+   SMALL SCREEN  
+========================= */  
+  
+@media(max-width:360px){  
+  
+ .live{  
+  gap:8px  
+ }  
+  
+ .live-card{  
+  padding:15px 5px  
+ }  
+  
+ .value{  
+  font-size:50px;  
+  letter-spacing:2px  
+ }  
+  
+ .time{  
+  font-size:13px  
+ }  
+  
+}  
+
+/* KYL & ZHA bottom navigation */
+.bottom .nav{min-width:0}
+.bottom{overflow-x:auto}
+.bottom .nav span{white-space:nowrap;font-size:11px}
+
+
+/* ONLY 12:01 PM and 04:31 PM live number animation */
+@keyframes liveNumberPulse {
+  0%,100% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.08); opacity:.78; }
+}
+#value1201, #value0431 {
+  animation:liveNumberPulse 1.2s ease-in-out infinite;
+  transform-origin:center;
 }
 
-.suggestion-card p{
- font-size:14px;
- line-height:1.8;
- color:#4e596b;
- white-space:pre-wrap
+/* Internet / Modern card styling */
+.market-box{
+  background:#fff;
+  margin:28px 28px 24px;
+  padding:28px 22px 24px;
+  border-radius:28px;
+  box-shadow:0 6px 24px rgba(0,0,0,.08);
+  overflow:hidden;
 }
-
-/* =========================
-   SETTINGS
-========================= */
-
-.setting-row{
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:16px 5px;
- border-bottom:1px solid #edf0f5;
- cursor:pointer
+.market-head{
+  display:grid;
+  grid-template-columns:1.05fr 1fr 1fr;
+  column-gap:14px;
+  align-items:center;
+  padding:0 8px 12px;
+  font-weight:700;
+  color:#182033;
+  font-size:15px;
 }
-
-.setting-row:last-child{
- border-bottom:0
+.market-row{
+  display:grid;
+  grid-template-columns:1.05fr 1fr 1fr;
+  column-gap:14px;
+  align-items:center;
+  margin-top:12px;
 }
-
-.setting-left{
- display:flex;
- align-items:center;
- gap:12px
+.market-time{
+  font-size:15px;
+  font-weight:600;
+  color:#182033;
+  padding-left:8px;
 }
-
-.setting-icon{
- width:42px;
- height:42px;
- border-radius:13px;
- background:#eaf3ff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:21px
+.market-value{
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 8px;
+  background:#fff;
+  border:1.5px solid #d7dbe2;
+  border-radius:14px;
+  box-shadow:0 2px 7px rgba(0,0,0,.04);
+  font-size:20px;
+  font-weight:700;
+  color:#111827;
 }
-
-.setting-name{
- font-weight:700;
- font-size:14px
+.market-value.loading{color:#6b7280}
+@media(max-width:520px){
+  .market-box{margin:24px 12px 20px;padding:24px 14px 20px;border-radius:24px}
+  .market-head,.market-row{grid-template-columns:1.05fr 1fr 1fr;column-gap:9px}
+  .market-head{font-size:13px;padding-left:4px;padding-right:4px}
+  .market-time{font-size:13px;padding-left:4px}
+  .market-value{min-height:48px;border-radius:12px;font-size:18px}
 }
+</style>  </head>  <body>  <div class="header">    <div class="top">  <div class="logo"  
+     data-my="🇲🇲 Myanmar 2D Stock"  
+     data-en="🇲🇲 Myanmar 2D Stock">  
+  🇲🇲 Myanmar 2D Stock  
+</div>  
 
-.setting-desc{
- color:#8a93a3;
- font-size:11px;
- margin-top:3px
-}
+<div class="bell">🔔</div>
 
-.arrow{
- color:#8a93a3;
- font-size:20px
-}
+  </div>    <div class="date"  
+       data-my="2D Live Result"  
+       data-en="2D Live Result">  
+    2D Live Result  
+  </div>  </div>  <div class="live-box">    <div class="live-title"  
+       data-my="🔴 2D LIVE SET VALUE"  
+       data-en="🔴 2D LIVE SET VALUE">  
+    🔴 2D LIVE SET VALUE  
+  </div>    <div id="liveDate"  
+       class="live-date">  
+    📅 Loading...  
+  </div>    <div id="liveClock"  
+       class="live-clock">  
+    🕐 Loading...  
+  </div>    <div class="live">  <div class="live-card time1">  
 
-.switch{
- width:48px;
- height:27px;
- border-radius:20px;
- background:#cbd2dc;
- position:relative;
- transition:.2s
-}
+  <div class="time">  
+    12:01 PM  
+  </div>  
 
-.switch::after{
- content:"";
- position:absolute;
- width:21px;
- height:21px;
- border-radius:50%;
- background:white;
- top:3px;
- left:3px;
- box-shadow:0 2px 5px rgba(0,0,0,.2);
- transition:.2s
-}
+  <div class="value"  
+       id="value1201">  
+    **  
+  </div>  
 
-.switch.on{
- background:#0757d9
-}
+  <div class="status">  
+    LIVE  
+  </div>  
 
-.switch.on::after{
- left:24px
-}
+</div>  
 
-/* =========================
-   MODAL
-========================= */
 
-.modal{
- display:none;
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.55);
- z-index:200000;
- align-items:center;
- justify-content:center;
- padding:20px
-}
+<div class="live-card time2">  
 
-.modal-box{
- background:white;
- width:100%;
- max-width:400px;
- border-radius:20px;
- padding:22px;
- box-shadow:0 10px 35px rgba(0,0,0,.25)
-}
+  <div class="time">  
+    04:31 PM  
+  </div>  
 
-.modal-title{
- font-size:20px;
- font-weight:bold;
- margin-bottom:15px
-}
+  <div class="value"  
+       id="value0431">  
+    **  
+  </div>  
 
-.modal-text{
- font-size:14px;
- line-height:1.8;
- color:#4e596b
-}
+  <div class="status">  
+    LIVE  
+  </div>  
 
-.modal-btn{
- margin-top:18px;
- width:100%;
- border:0;
- background:#0757d9;
- color:white;
- padding:12px;
- border-radius:12px;
- font-size:15px;
- font-weight:bold
-}
+</div>
 
-.lang-btn{
- width:100%;
- padding:13px;
- margin-top:8px;
- border:1px solid #dfe4ec;
- background:white;
- border-radius:12px;
- font-size:14px;
- text-align:left
-}
+  </div>  </div>
 
-.lang-btn.active{
- border:2px solid #0757d9;
- background:#eaf3ff
-}
+  <div class="market-box">
+    <div class="market-head">
+      <div>TIME</div>
+      <div>Internet</div>
+      <div>Modern</div>
+    </div>
+    <div class="market-row">
+      <div class="market-time">09:30 AM</div>
+      <div class="market-value loading" id="internet0930">—</div>
+      <div class="market-value modern loading" id="modern0930">—</div>
+    </div>
+    <div class="market-row">
+      <div class="market-time">02:00 PM</div>
+      <div class="market-value loading" id="internet0200">—</div>
+      <div class="market-value modern loading" id="modern0200">—</div>
+    </div>
+  </div>
+  <div class="section-title"  
+     data-my="Menu"  
+     data-en="Menu">  
+  Menu  
+</div>  <div class="menu">    <div class="item" id="dailyBtn">  <div class="icon">  
+  📁
+</div>  
 
-/* =========================
-   CARD NOTIFICATION
-========================= */
+<h3 data-my="နေ့တိုကကဒ"  
+    data-en="Daily Cards">  
+  နေ့တိုကကဒ  
+</h3>  
 
-#cardNotification{
- display:none;
- position:fixed;
- top:15px;
- left:15px;
- right:15px;
- max-width:570px;
- margin:auto;
- z-index:300000;
- background:white;
- border-radius:17px;
- padding:14px 15px;
- box-shadow:0 8px 30px rgba(0,0,0,.25);
- border-left:5px solid #0757d9;
- cursor:pointer
-}
+<p data-my="Daily Cards"  
+   data-en="Daily Cards">  
+  Daily Cards  
+</p>
 
-.card-noti-inner{
- display:flex;
- align-items:center;
- gap:12px
-}
+  </div>    <div class="item" id="thaiBtn">  <div class="icon">  
+  🇹🇭
+</div>  
 
-.card-noti-icon{
- width:44px;
- height:44px;
- min-width:44px;
- border-radius:13px;
- background:#eaf3ff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:23px
-}
+<h3 data-my="ထိုင်းကဒ"  
+    data-en="Thai Cards">  
+  ထိုင်းကဒ  
+</h3>  
 
-.card-noti-title{
- font-size:15px;
- font-weight:800;
- color:#172033
-}
+<p data-my="Thai Card"  
+   data-en="Thai Cards">  
+  Thai Card  
+</p>
 
-.card-noti-text{
- font-size:12px;
- color:#687386;
- margin-top:3px
-}
+  </div>    <div class="item" id="totalBtn">  <div class="icon">  
+  🗂️  
+</div>  
 
-.card-noti-close{
- margin-left:auto;
- border:0;
- background:none;
- font-size:22px;
- color:#8a93a3;
- padding:4px 6px
-}
+<h3 data-my="Total Cards"  
+    data-en="Total Cards">  
+  Total Cards  
+</h3>  
 
-/* =========================
-   SMALL SCREEN
-========================= */
+<p data-my="All Cards"  
+   data-en="All Cards">  
+  All Cards  
+</p>
 
-@media(max-width:360px){
+  </div>    <div class="item" id="weeklyBtn">  <div class="icon">  
+  🎁  
+</div>  
 
- .live{
-  gap:8px
- }
+<h3 data-my="တစ်ပတ်စာကဒများ"  
+    data-en="Weekly Cards">  
+  တစ်ပတ်စာကဒများ  
+</h3>  
 
- .live-card{
-  padding:15px 5px
- }
+<p data-my="Weekly"  
+   data-en="Weekly">  
+  Weekly  
+</p>
 
- .value{
-  font-size:50px;
-  letter-spacing:2px
- }
+  </div>    <div class="item" id="openHistoryBtn">  <div class="icon">  
+  📊  
+</div>  
 
- .time{
-  font-size:13px
- }
+<h3>  
+  2D History  
+</h3>  
 
-}
-</style></head><body><div class="header"> <div class="top">  <div class="logo"
-       data-my="🇲🇲 Myanmar 2D Stock"
-       data-en="🇲🇲 Myanmar 2D Stock">
-   🇲🇲 Myanmar 2D Stock
-  </div>  <div class="bell">🔔</div> </div> <div class="date"
-      data-my="2D Live Result"
-      data-en="2D Live Result">
-  2D Live Result
- </div></div><div class="live-box"> <div class="live-title"
-      data-my="🔴 2D LIVE SET VALUE"
-      data-en="🔴 2D LIVE SET VALUE">
-  🔴 2D LIVE SET VALUE
- </div> <div id="liveDate"
-      class="live-date">
-  📅 Loading...
- </div> <div id="liveClock"
-      class="live-clock">
-  🕐 Loading...
- </div> <div class="live">  <div class="live-card time1">   <div class="time">
-    12:01 PM
-   </div>   <div class="value"
-        id="value1201">
-    **
-   </div>   <div class="status">
-    LIVE
-   </div>  </div>  <div class="live-card time2">   <div class="time">
-    04:31 PM
-   </div>   <div class="value"
-        id="value0431">
-    **
-   </div>   <div class="status">
-    LIVE
-   </div>  </div> </div></div><div class="section-title"
-     data-my="Menu"
-     data-en="Menu">
- Menu
-</div><div class="menu"> <div class="item" id="dailyBtn">  <div class="icon">
-   📁
-  </div>  <h3 data-my="နေ့တိုက်ကဒ်"
-      data-en="Daily Cards">
-   နေ့တိုက်ကဒ်
-  </h3>  <p data-my="Daily Cards"
-     data-en="Daily Cards">
-   Daily Cards
-  </p> </div> <div class="item" id="thaiBtn">  <div class="icon">
-   🇹🇭
-  </div>  <h3 data-my="ထိုင်းကဒ်"
-      data-en="Thai Cards">
-   ထိုင်းကဒ်
-  </h3>  <p data-my="Thai Card"
-     data-en="Thai Cards">
-   Thai Card
-  </p> </div> <div class="item" id="totalBtn">  <div class="icon">
-   🗂️
-  </div>  <h3 data-my="Total Cards"
-      data-en="Total Cards">
-   Total Cards
-  </h3>  <p data-my="All Cards"
-     data-en="All Cards">
-   All Cards
-  </p> </div> <div class="item" id="weeklyBtn">  <div class="icon">
-   🎁
-  </div>  <h3 data-my="တစ်ပတ်စာကဒ်များ"
-      data-en="Weekly Cards">
-   တစ်ပတ်စာကဒ်များ
-  </h3>  <p data-my="Weekly"
-     data-en="Weekly">
-   Weekly
-  </p> </div> <div class="item" id="openHistoryBtn">  <div class="icon">
-   📊
-  </div>  <h3>
-   2D History
-  </h3>  <p data-my="2D မှတ်တမ်း"
-     data-en="2D Records">
-   2D မှတ်တမ်း
-  </p> </div> <div class="item" id="open3DHistoryBtn">  <div class="icon">
-   🎲
-  </div>  <h3>
-   3D History
-  </h3>  <p data-my="3D မှတ်တမ်း"
-     data-en="3D Records">
-   3D မှတ်တမ်း
-  </p> </div></div><div class="suggestion"
-     id="homeSuggestionBox"> <h3 data-my="💡 အကြံပြုချက်များ"
-     data-en="💡 Suggestions">
-  💡 အကြံပြုချက်များ
- </h3> <p id="homeSuggestionText">
-  အကြံပြုချက်များ Loading လုပ်နေပါသည်...
- </p></div><div class="bottom"> <div class="nav active"
-      id="navHome">  <div class="nav-icon">
-   🏠
-  </div><span data-my="ပင်မ"
-data-en="Home">
-ပင်မ
+<p data-my="2D မှတ်တမ်း"  
+   data-en="2D Records">  
+  2D မှတ်တမ်း  
+</p>
+
+  </div>    <div class="item" id="open3DHistoryBtn">  <div class="icon">  
+  🎲  
+</div>  
+
+<h3>  
+  3D History  
+</h3>  
+
+<p data-my="3D မှတ်တမ်း"  
+   data-en="3D Records">  
+  3D မှတ်တမ်း  
+</p>
+
+  </div>    <div class="item" id="openKylZhaBtn">  <div class="icon">🖼️</div>
+
+<h3 data-my="KYL & ZHA CARDS" data-en="KYL & ZHA CARDS">KYL & ZHA CARDS</h3>
+
+<p data-my="စာ + ပုံများ" data-en="Cards & Posts">စာ + ပုံများ</p>
+
+  </div>  </div>  <div class="suggestion"  
+     id="homeSuggestionBox">    <h3 data-my="💡 အကြံပြုချက်များ"  
+      data-en="💡 Suggestions">  
+    💡 အကြံပြုချက်များ  
+  </h3>    <p id="homeSuggestionText">  
+    အကြံပြုချက်များ Loading လုပ်နေပါသည်...  
+  </p>  </div>  <div class="bottom">    <div class="nav active"  
+       id="navHome">  <div class="nav-icon">  
+  🏠  
+</div>  
+
+<span data-my="ပင်မ"  
+      data-en="Home">  
+  ပင်မ  
 </span>
 
- </div> <div class="nav"
-      id="navHistory">  <div class="nav-icon">
-   📊
-  </div>  <span>
-   History
-  </span> </div> <div class="nav"
-      id="navSuggestion">  <div class="nav-icon">
-   💡
-  </div><span data-my="အကြံပြုချက်"
-data-en="Suggestions">
-အကြံပြုချက်
+  </div>    <div class="nav"  
+       id="navHistory">  <div class="nav-icon">  
+  📊  
+</div>  
+
+<span>  
+  History  
 </span>
 
- </div> <div class="nav"
-      id="navSettings">  <div class="nav-icon">
-   ⚙️
-  </div><span data-my="Settings"
-data-en="Settings">
-Settings
+  </div>    <div class="nav"  
+       id="navSuggestion">  <div class="nav-icon">  
+  💡  
+</div>  
+
+<span data-my="အကြံပြုချက်"  
+      data-en="Suggestions">  
+  အကြံပြုချက်  
 </span>
 
- </div></div><!-- CARD NOTIFICATION --><div id="cardNotification"> <div class="card-noti-inner">  <div class="card-noti-icon">
-   🔔
-  </div>  <div style="flex:1">   <div id="cardNotificationTitle"
-        class="card-noti-title">
-    Card အသစ်တင်ပြီးပါပြီ
-   </div>   <div id="cardNotificationText"
-        class="card-noti-text">
-    Card အသစ်ကို ဝင်ကြည့်နိုင်ပါပြီ။
-   </div>  </div><button id="cardNotificationClose"
-class="card-noti-close">
-×
+  </div>    <div class="nav" id="navKylZha">  <div class="nav-icon">🖼️</div>
+<span data-my="KYL & ZHA" data-en="KYL & ZHA">KYL & ZHA</span>
+
+  </div>    <div class="nav"  
+       id="navSettings">  <div class="nav-icon">  
+  ⚙️  
+</div>  
+
+<span data-my="Settings"  
+      data-en="Settings">  
+  Settings  
+</span>
+
+  </div>  </div>  <!-- CARD NOTIFICATION -->  <div id="cardNotification">    <div class="card-noti-inner">  <div class="card-noti-icon">  
+  🔔  
+</div>  
+
+<div style="flex:1">  
+
+  <div id="cardNotificationTitle"  
+       class="card-noti-title">  
+    Card အသစ်တင်ပြီးပါပြီ  
+  </div>  
+
+  <div id="cardNotificationText"  
+       class="card-noti-text">  
+    Card အသစ်ကို ဝင်ကြည့်နိုင်ပါပြီ။  
+  </div>  
+
+</div>  
+
+<button id="cardNotificationClose"  
+        class="card-noti-close">  
+  ×  
 </button>
 
- </div></div><!-- IMAGE PAGE --><div id="imagePage"
-     class="image-page"> <div class="image-header"><button id="imageBackBtn"
-class="back-btn"
-aria-label="Back">
+  </div>  </div>  <!-- IMAGE PAGE -->  <div id="imagePage"  
+     class="image-page">    <div class="image-header">  <button id="imageBackBtn"  
+        class="back-btn" aria-label="Back">Back</button>  
 
-<span class="back-arrow"></span>
+<div id="imageTitle"  
+     class="image-title">  
+  📅 နေ့တိုကကဒ  
+</div>  
 
-  </button>  <div id="imageTitle"
-       class="image-title">
-   📅 နေ့တိုက်ကဒ်
-  </div>  <div id="imageSubtitle"
-       class="image-subtitle">
-   Daily Cards
-  </div> </div> <div id="imageList"
-      class="image-list">  <div class="empty-box">   <div class="empty-icon">
-    ⏳
-   </div><span data-my="ပုံများ Loading လုပ်နေပါသည်..."
-data-en="Loading images...">
-ပုံများ Loading လုပ်နေပါသည်...
-</span>
+<div id="imageSubtitle"  
+     class="image-subtitle">  
+  Daily Cards  
+</div>
 
-  </div> </div></div><!-- FULL IMAGE --><div id="fullImagePage"> <button id="closeFullImage">
-  ×
- </button><img id="fullImage"
-src=""
+  </div>    <div id="imageList"  
+       class="image-list">  <div class="empty-box">  
+
+  <div class="empty-icon">  
+    ⏳  
+  </div>  
+
+  <span data-my="ပုံများ Loading လုပ်နေပါသည်..."  
+        data-en="Loading images...">  
+    ပုံများ Loading လုပ်နေပါသည်...  
+  </span>  
+
+</div>
+
+  </div>  </div>  <!-- FULL IMAGE -->  <div id="fullImagePage">    <button id="closeFullImage">  
+    ×  
+  </button>  <img id="fullImage"  
+src=""  
 alt="Image">
 
-</div><!-- 2D HISTORY --><div id="historyPage"
-     class="page"> <div class="page-header"><button id="historyBackBtn"
-class="back-btn"
-aria-label="Back">
+</div>  <!-- 2D HISTORY -->  <div id="historyPage"  
+     class="page">    <div class="page-header">  <button id="historyBackBtn"  
+        class="back-btn" aria-label="Back">Back</button>  
 
-<span class="back-arrow"></span>
+<div class="page-title">  
+  📊 2D History  
+</div>  
 
-  </button>  <div class="page-title">
-   📊 2D History
-  </div>  <div id="historySubtitle"
-       class="page-subtitle">
-   2D မှတ်တမ်း
-  </div> </div> <div id="historyList"
-      class="page-content">  <div class="empty-box">
-   Loading...
-  </div> </div></div><!-- 3D HISTORY --><div id="threeDHistoryPage"
-     class="page"> <div class="page-header"><button id="threeDBackBtn"
-class="back-btn"
-aria-label="Back">
+<div id="historySubtitle"  
+     class="page-subtitle">  
+  2D မှတ်တမ်း  
+</div>
 
-<span class="back-arrow"></span>
+  </div>    <div id="historyList"  
+       class="page-content">  <div class="empty-box">  
+  Loading...  
+</div>
 
-  </button>  <div class="page-title">
-   🎲 3D History
-  </div>  <div class="page-subtitle"
-       data-my="3D မှတ်တမ်း"
-       data-en="3D Records">
-   3D မှတ်တမ်း
-  </div> </div> <div id="threeDList"
-      class="page-content">  <div class="empty-box">   <div class="empty-icon">
-    ⏳
-   </div>3D History Loading...
+  </div>  </div>  <!-- 3D HISTORY -->  <div id="threeDHistoryPage"  
+     class="page">    <div class="page-header">  <button id="threeDBackBtn"  
+        class="back-btn" aria-label="Back">Back</button>  
 
-  </div> </div></div><!-- SUGGESTION --><div id="suggestionPage"
-     class="page"> <div class="page-header"><button id="suggestionBackBtn"
-class="back-btn"
-aria-label="Back">
+<div class="page-title">  
+  🎲 3D History  
+</div>  
 
-<span class="back-arrow"></span>
+<div class="page-subtitle"  
+     data-my="3D မှတ်တမ်း"  
+     data-en="3D Records">  
+  3D မှတ်တမ်း  
+</div>
 
-  </button>  <div class="page-title">💡
+  </div>    <div id="threeDList"  
+       class="page-content">  <div class="empty-box">  
 
-<span data-my="အကြံပြုချက်များ"
-data-en="Suggestions">
-အကြံပြုချက်များ
-</span>
+  <div class="empty-icon">  
+    ⏳  
+  </div>  
 
-  </div>  <div class="page-subtitle"
-       data-my="Admin မှ တင်ထားသော အကြံပြုချက်များ"
-       data-en="Suggestions posted by Admin">
-   Admin မှ တင်ထားသော အကြံပြုချက်များ
-  </div> </div> <div id="suggestionList"
-      class="page-content">  <div class="empty-box">
-   Loading...
-  </div> </div></div><!-- SETTINGS --><div id="settingsPage"
-     class="page"> <div class="page-header"><button id="settingsBackBtn"
-class="back-btn"
-aria-label="Back">
-
-<span class="back-arrow"></span>
-
-  </button>  <div class="page-title">⚙️
-
-<span data-my="Settings"
-data-en="Settings">
-Settings
-</span>
-
-  </div>  <div class="page-subtitle"
-       data-my="App Settings"
-       data-en="App Settings">
-   App Settings
-  </div> </div> <div class="page-content">  <div class="setting-card">   <div class="setting-row"
-        id="notificationRow"><div class="setting-left">
-
- <div class="setting-icon">
-  🔔
- </div>
-
- <div>
-
-  <div class="setting-name"
-       data-my="Notifications"
-       data-en="Notifications">
-   Notifications
-  </div>
-
-  <div class="setting-desc"
-       id="notificationDesc">
-   အသိပေးချက်များ ပိတ်ထားသည်
-  </div>
-
- </div>
+  3D History Loading...  
 
 </div>
 
-<div class="switch"
-     id="notificationSwitch">
+  </div>  </div>  <!-- SUGGESTION -->  <div id="suggestionPage"  
+     class="page">    <div class="page-header">  <button id="suggestionBackBtn"  
+        class="back-btn" aria-label="Back">Back</button>  
+
+<div class="page-title">  
+
+  💡  
+
+  <span data-my="အကြံပြုချက်များ"  
+        data-en="Suggestions">  
+    အကြံပြုချက်များ  
+  </span>  
+
+</div>  
+
+<div class="page-subtitle"  
+     data-my="Admin မှ တင်ထားသော အကြံပြုချက်များ"  
+     data-en="Suggestions posted by Admin">  
+  Admin မှ တင်ထားသော အကြံပြုချက်များ  
 </div>
 
-   </div>   <div class="setting-row"
-        id="languageRow"><div class="setting-left">
+  </div>    <div id="suggestionList"  
+       class="page-content">  <div class="empty-box">  
+  Loading...  
+</div>
 
- <div class="setting-icon">
-  🌐
- </div>
+  </div>  </div>  <!-- KYL & ZHA -->  <div id="kylZhaPage" class="page">
 
- <div>
+    <div class="page-header">
+      <button id="kylZhaBackBtn" class="back-btn" aria-label="Back">Back</button>
+      <div class="page-title">🖼️ KYL & ZHA CARDS</div>
+      <div class="page-subtitle" data-my="Admin မှ တင်ထားသော စာနှင့်ပုံများ" data-en="Posts from Admin">Admin မှ တင်ထားသော စာနှင့်ပုံများ</div>
+    </div>
 
-  <div class="setting-name"
-       data-my="Language"
-       data-en="Language">
-   Language
-  </div>
+    <div id="kylZhaList" class="page-content">
+      <div class="empty-box"><div class="empty-icon">⏳</div>Loading...</div>
+    </div>
 
-  <div class="setting-desc"
-       id="languageDesc">
-   မြန်မာ
-  </div>
+  </div>  <!-- SETTINGS -->  <div id="settingsPage"  
+     class="page">    <div class="page-header">  <button id="settingsBackBtn"  
+        class="back-btn" aria-label="Back">Back</button>  
 
- </div>
+<div class="page-title">  
+
+  ⚙️  
+
+  <span data-my="Settings"  
+        data-en="Settings">  
+    Settings  
+  </span>  
+
+</div>  
+
+<div class="page-subtitle"  
+     data-my="App Settings"  
+     data-en="App Settings">  
+  App Settings  
+</div>
+
+  </div>    <div class="page-content">  <div class="setting-card">  
+
+  <div class="setting-row"  
+       id="notificationRow">  
+
+    <div class="setting-left">  
+
+      <div class="setting-icon">  
+        🔔  
+      </div>  
+
+      <div>  
+
+        <div class="setting-name"  
+             data-my="Notifications"  
+             data-en="Notifications">  
+          Notifications  
+        </div>  
+
+        <div class="setting-desc"  
+             id="notificationDesc">  
+          အသိပေးချက်များ ပိတ်ထားသည်  
+        </div>  
+
+      </div>  
+
+    </div>  
+
+
+    <div class="switch"  
+         id="notificationSwitch">  
+    </div>  
+
+  </div>  
+
+
+  <div class="setting-row"  
+       id="languageRow">  
+
+    <div class="setting-left">  
+
+      <div class="setting-icon">  
+        🌐  
+      </div>  
+
+      <div>  
+
+        <div class="setting-name"  
+             data-my="Language"  
+             data-en="Language">  
+          Language  
+        </div>  
+
+        <div class="setting-desc"  
+             id="languageDesc">  
+          မြန်မာ  
+        </div>  
+
+      </div>  
+
+    </div>  
+
+    <div class="arrow">  
+      ›  
+    </div>  
+
+  </div>  
+
+
+  <div class="setting-row"  
+       id="aboutRow">  
+
+    <div class="setting-left">  
+
+      <div class="setting-icon">  
+        ℹ️  
+      </div>  
+
+      <div>  
+
+        <div class="setting-name"  
+             data-my="About"  
+             data-en="About">  
+          About  
+        </div>  
+
+        <div class="setting-desc">  
+          Myanmar 2D Stock  
+        </div>  
+
+      </div>  
+
+    </div>  
+
+    <div class="arrow">  
+      ›  
+    </div>  
+
+  </div>  
 
 </div>
 
-<div class="arrow">
- ›
-</div>
+  </div>  </div>  <!-- LANGUAGE MODAL -->  <div class="modal"  
+     id="languageModal">    <div class="modal-box">  <div class="modal-title">  
 
-   </div>   <div class="setting-row"
-        id="aboutRow"><div class="setting-left">
+  🌐  
 
- <div class="setting-icon">
-  ℹ️
- </div>
+  <span data-my="Language"  
+        data-en="Language">  
+    Language  
+  </span>  
 
- <div>
+</div>  
 
-  <div class="setting-name"
-       data-my="About"
-       data-en="About">
-   About
-  </div>
 
-  <div class="setting-desc">
-   Myanmar 2D Stock
-  </div>
+<button class="lang-btn"  
+        id="myanmarLangBtn">  
+  🇲🇲 မြန်မာ  
+</button>  
 
- </div>
 
-</div>
+<button class="lang-btn"  
+        id="englishLangBtn">  
+  🇬🇧 English  
+</button>  
 
-<div class="arrow">
- ›
-</div>
 
-   </div>  </div> </div></div><!-- LANGUAGE MODAL --><div class="modal"
-     id="languageModal"> <div class="modal-box">  <div class="modal-title">🌐
+<button class="modal-btn"  
+        id="closeLanguageBtn">  
 
-<span data-my="Language"
-data-en="Language">
-Language
-</span>
+  <span data-my="ပိတ်မည်"  
+        data-en="Close">  
+    ပိတ်မည်  
+  </span>  
 
-  </div><button class="lang-btn"
-id="myanmarLangBtn">
-🇲🇲 မြန်မာ
 </button>
 
-<button class="lang-btn"
-id="englishLangBtn">
-🇬🇧 English
+  </div>  </div>  <!-- ABOUT MODAL -->  <div class="modal"  
+     id="aboutModal">    <div class="modal-box">  <div class="modal-title">  
+  ℹ️ Myanmar 2D Stock  
+</div>  
+
+<div class="modal-text"  
+     id="aboutText">  
+</div>  
+
+<button class="modal-btn"  
+        id="closeAboutBtn">  
+
+  <span data-my="ပိတ်မည်"  
+        data-en="Close">  
+    ပိတ်မည်  
+  </span>  
+
 </button>
 
-<button class="modal-btn"
-id="closeLanguageBtn">
+  </div>  </div>  <script>  
+  
+/* =========================  
+   DATE & CLOCK  
+========================= */  
+  
+function updateDateTime(){  
+  
+ var now=new Date();  
+  
+ var day=  
+  String(now.getDate()).padStart(2,"0");  
+  
+ var month=  
+  String(now.getMonth()+1).padStart(2,"0");  
+  
+ var year=  
+  now.getFullYear();  
+  
+ var hour=  
+  now.getHours();  
+  
+ var minute=  
+  String(now.getMinutes()).padStart(2,"0");  
+  
+ var second=  
+  String(now.getSeconds()).padStart(2,"0");  
+  
+ var ampm=  
+  hour>=12?"PM":"AM";  
+  
+ hour=hour%12;  
+  
+ if(hour===0)hour=12;  
+  
+ hour=  
+  String(hour).padStart(2,"0");  
+  
+ document.getElementById(  
+  "liveDate"  
+ ).textContent=  
+  "📅 "+day+"-"+month+"-"+year;  
+  
+ document.getElementById(  
+  "liveClock"  
+ ).textContent=  
+  "🕐 "+hour+":"+minute+":"+second+" "+ampm;  
+  
+}  
+  
+updateDateTime();  
+  
+setInterval(  
+ updateDateTime,  
+ 1000  
+);  
+  
+</script>  <script type="module">  
+  
+import{  
+ initializeApp  
+}from"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";  
+  
+import{  
+ getDatabase,  
+ ref,  
+ onValue  
+}from"https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";  
+  
+  
+/* =========================  
+   FIREBASE  
+========================= */  
+  
+const firebaseConfig={  
+  
+ apiKey:  
+ "AIzaSyCgY-HbhUglVF4xZcw7wgUGIF_yCgc2g",  
+  
+ authDomain:  
+ "myanmar-2d-stock-91737.firebaseapp.com",  
+  
+ projectId:  
+ "myanmar-2d-stock-91737",  
+  
+ storageBucket:  
+ "myanmar-2d-stock-91737.firebasestorage.app",  
+  
+ messagingSenderId:  
+ "899567044524",  
+  
+ appId:  
+ "1:899567044524:web:853c9cbddd923184ce9c09",  
+  
+ measurementId:  
+ "G-13XVY11MFJ"  
+  
+};  
+  
+const app=  
+ initializeApp(firebaseConfig);  
+  
+const db=  
+ getDatabase(app);  
+  
+  
+/* =========================  
+   DOM  
+========================= */  
+  
+const imagePage=  
+ document.getElementById(  
+  "imagePage"  
+ );  
+  
+const imageBackBtn=  
+ document.getElementById(  
+  "imageBackBtn"  
+ );  
+  
+const imageTitle=  
+ document.getElementById(  
+  "imageTitle"  
+ );  
+  
+const imageSubtitle=  
+ document.getElementById(  
+  "imageSubtitle"  
+ );  
+  
+const imageList=  
+ document.getElementById(  
+  "imageList"  
+ );  
+  
+const historyPage=  
+ document.getElementById(  
+  "historyPage"  
+ );  
+  
+const historyList=  
+ document.getElementById(  
+  "historyList"  
+ );  
+  
+const threeDPage=  
+ document.getElementById(  
+  "threeDHistoryPage"  
+ );  
+  
+const threeDList=  
+ document.getElementById(  
+  "threeDList"  
+ );  
+  
+const suggestionPage=  
+ document.getElementById(  
+  "suggestionPage"  
+ );  
+  
+const suggestionList=  
+ document.getElementById(  
+  "suggestionList"  
+ );  
+  
+const homeSuggestionText=  
+ document.getElementById(  
+  "homeSuggestionText"  
+ );  
+  
+const settingsPage=  
+ document.getElementById(  
+  "settingsPage"  
+ );
 
-<span data-my="ပိတ်မည်"
-data-en="Close">
-ပိတ်မည်
-</span>
+const kylZhaPage=
+ document.getElementById(
+  "kylZhaPage"
+ );
 
-  </button> </div></div><!-- ABOUT MODAL --><div class="modal"
-     id="aboutModal"> <div class="modal-box">  <div class="modal-title">
-   ℹ️ Myanmar 2D Stock
-  </div>  <div class="modal-text"
-       id="aboutText">
-  </div><button class="modal-btn"
-id="closeAboutBtn">
+const kylZhaList=
+ document.getElementById(
+  "kylZhaList"
+ );
 
-<span data-my="ပိတ်မည်"
-data-en="Close">
-ပိတ်မည်
-</span>
-
-  </button> </div></div><script>
-
+const navKylZha=
+ document.getElementById(
+  "navKylZha"
+ );  
+  
+const navHome=  
+ document.getElementById(  
+  "navHome"  
+ );  
+  
+const navHistory=  
+ document.getElementById(  
+  "navHistory"  
+ );  
+  
+const navSuggestion=  
+ document.getElementById(  
+  "navSuggestion"  
+ );  
+  
+const navSettings=  
+ document.getElementById(  
+  "navSettings"  
+ );  
+  
+const languageModal=  
+ document.getElementById(  
+  "languageModal"  
+ );  
+  
+const aboutModal=  
+ document.getElementById(  
+  "aboutModal"  
+ );  
+  
+const notificationSwitch=  
+ document.getElementById(  
+  "notificationSwitch"  
+ );  
+  
+const notificationDesc=  
+ document.getElementById(  
+  "notificationDesc"  
+ );  
+  
+const languageDesc=  
+ document.getElementById(  
+  "languageDesc"  
+ );  
+  
+const aboutText=  
+ document.getElementById(  
+  "aboutText"  
+ );  
+  
+const cardNotification=  
+ document.getElementById(  
+  "cardNotification"  
+ );  
+  
+const cardNotificationTitle=  
+ document.getElementById(  
+  "cardNotificationTitle"  
+ );  
+  
+const cardNotificationText=  
+ document.getElementById(  
+  "cardNotificationText"  
+ );  
+  
+const cardNotificationClose=  
+ document.getElementById(  
+  "cardNotificationClose"  
+ );  
+  
+  
+/* =========================  
+   LANGUAGE  
+========================= */  
+  
+let selectedLanguage=  
+ localStorage.getItem("language")||"my";  
+  
+  
+const translations={  
+  
+ my:{  
+  
+  notificationOn:  
+   "အသိပေးချက်များ ဖွင့်ထားသည်",  
+  
+  notificationOff:  
+   "အသိပေးချက်များ ပိတ်ထားသည်",  
+  
+  noHistory:  
+   "မှတ်တမ်းမရှိသေးပါ",  
+  
+  noResult:  
+   "ရလဒ်မရှိသေးပါ",  
+  
+  no3D:  
+   "3D History မရှိသေးပါ",  
+  
+  noSuggestion:  
+   "အကြံပြုချက်မရှိသေးပါ",  
+  
+  noImage:  
+   "ပုံမရှိသေးပါ",  
+  
+  admin3d:  
+   "Admin မှ 3D နံပါတ်ထည့်ပြီးနောက် ဒီနေရာမှာ ပေါ်လာပါမယ်။",  
+  
+  adminImage:  
+   "Admin မှ ပုံတင်ပြီးနောက် ဒီနေရာမှာ ပေါ်လာပါမယ်။",  
+  
+  loadingImages:  
+   "ပုံများ Loading လုပ်နေပါသည်...",  
+  
+  suggestion:  
+   "💡 အကြံပြုချက်",  
+  
+  about:  
+   "<b>Myanmar 2D Stock</b><br><br>"+  
+   "2D Live Result၊ 2D History၊ 3D History နှင့် Card များကို ကြည့်ရှုနိုင်သော App ဖြစ်ပါသည်။<br><br>"+  
+   "Version 1.0",  
+  
+  cardNotice:  
+   "Card အသစ်တင်ပြီးပါပြီ",  
+  
+  cardNoticeText:  
+   "Card အသစ်ကို ဝင်ကြည့်နိုင်ပါပြီ။"  
+  
+ },  
+  
+ en:{  
+  
+  notificationOn:  
+   "Notifications are ON",  
+  
+  notificationOff:  
+   "Notifications are OFF",  
+  
+  noHistory:  
+   "No history yet",  
+  
+  noResult:  
+   "No result yet",  
+  
+  no3D:  
+   "No 3D history yet",  
+  
+  noSuggestion:  
+   "No suggestions yet",  
+  
+  noImage:  
+   "No images yet",  
+  
+  admin3d:  
+   "3D results will appear here after Admin adds a number.",  
+  
+  adminImage:  
+   "Images will appear here after Admin uploads them.",  
+  
+  loadingImages:  
+   "Loading images...",  
+  
+  suggestion:  
+   "💡 Suggestion",  
+  
+  about:  
+   "<b>Myanmar 2D Stock</b><br><br>"+  
+   "An app for viewing 2D Live Results, 2D History, 3D History and Cards.<br><br>"+  
+   "Version 1.0",  
+  
+  cardNotice:  
+   "New Card uploaded",  
+  
+  cardNoticeText:  
+   "You can open the Card now."  
+  
+ }  
+  
+};  
+  
+  
+function t(key){  
+  
+ return translations[  
+  selectedLanguage  
+ ][key]||key;  
+  
+}  
+  
+  
+/* =========================  
+   CATEGORY  
+========================= */  
+  
+let currentCategory=null;  
+  
+let imageUnsubscribe=null;  
+  
+  
+const categoryInfo={  
+  
+ daily:{  
+  myTitle:"📅 နေ့တိုကကဒ",  
+  enTitle:"📅 Daily Cards",  
+  subtitle:"Daily Cards"  
+ },  
+  
+ thai:{  
+  myTitle:"⚜️ ထိုင်းကဒ",  
+  enTitle:"⚜️ Thai Cards",  
+  subtitle:"Thai Cards"  
+ },  
+  
+ total:{  
+  myTitle:"🗂️ Total Cards",  
+  enTitle:"🗂️ Total Cards",  
+  subtitle:"Total Cards"  
+ },  
+  
+ weekly:{  
+  myTitle:"🎁 တစ်ပတ်စာကဒများ",  
+  enTitle:"🎁 Weekly Cards",  
+  subtitle:"Weekly Cards"  
+ }  
+  
+};  
+  
+  
+/* =========================  
+   NOTIFICATION SETTING  
+========================= */  
+  
+let notificationsOn=  
+ localStorage.getItem(  
+  "notificationsOn"  
+ )!=="false";  
+  
+  
+function updateNotificationUI(){  
+  
+ notificationSwitch.classList.toggle(  
+  "on",  
+  notificationsOn  
+ );  
+  
+ notificationDesc.textContent=  
+  notificationsOn  
+  ?t("notificationOn")  
+  :t("notificationOff");  
+  
+}  
+  
+  
+/* =========================  
+   CARD NOTIFICATION  
+========================= */  
+  
+let notificationTimer=null;  
+  
+let lastNotificationCategory=null;  
+  
+  
+function showCardNotification(category){  
+  
+ if(!notificationsOn)return;  
+  
+ const info=  
+  categoryInfo[category];  
+  
+ if(!info)return;  
+  
+ lastNotificationCategory=  
+  category;  
+  
+  
+ cardNotificationTitle.textContent=  
+  t("cardNotice");  
+  
+  
+ cardNotificationText.textContent=  
+  selectedLanguage==="en"  
+  ?info.enTitle+  
+   " — "+  
+   t("cardNoticeText")  
+  :info.myTitle+  
+   " — "+  
+   t("cardNoticeText");  
+  
+  
+ cardNotification.style.display=  
+  "block";  
+  
+  
+ if(notificationTimer){  
+  
+  clearTimeout(  
+   notificationTimer  
+  );  
+  
+ }  
+  
+  
+ notificationTimer=  
+  setTimeout(()=>{  
+  
+   cardNotification.style.display=  
+    "none";  
+  
+  },6000);  
+  
+}  
+  
+  
+cardNotification.addEventListener(  
+ "click",  
+ e=>{  
+  
+  if(  
+   e.target===  
+   cardNotificationClose  
+  ){  
+  
+   return;  
+  
+  }  
+  
+  
+  if(lastNotificationCategory){  
+  
+   cardNotification.style.display=  
+    "none";  
+  
+   openImageCategory(  
+    lastNotificationCategory  
+   );  
+  
+  }  
+  
+ }  
+);  
+  
+  
+cardNotificationClose.addEventListener(  
+ "click",  
+ e=>{  
+  
+  e.stopPropagation();  
+  
+  cardNotification.style.display=  
+   "none";  
+  
+ });  
+  
+  
+/* =========================  
+   NEW CARD DETECTION  
+========================= */  
+  
+const cardKnownIds={  
+  
+ daily:new Set(),  
+  
+ thai:new Set(),  
+  
+ total:new Set(),  
+  
+ weekly:new Set()  
+  
+};  
+  
+  
+const cardReady={  
+  
+ daily:false,  
+  
+ thai:false,  
+  
+ total:false,  
+  
+ weekly:false  
+  
+};  
+  
+  
+[  
+ "daily",  
+ "thai",  
+ "total",  
+ "weekly"  
+].forEach(category=>{  
+  
+ onValue(  
+  ref(  
+   db,  
+   "cards/"+category  
+  ),  
+  snapshot=>{  
+  
+   const data=  
+    snapshot.val()||{};  
+  
+  
+   const currentIds=  
+    new Set(  
+     Object.keys(data)  
+    );  
+  
+  
+   if(  
+    !cardReady[category]  
+   ){  
+  
+    cardKnownIds[category]=  
+     currentIds;  
+  
+    cardReady[category]=  
+     true;  
+  
+    return;  
+  
+   }  
+  
+  
+   let newCard=false;  
+  
+  
+   currentIds.forEach(id=>{  
+  
+    if(  
+     !cardKnownIds[category]  
+      .has(id)  
+    ){  
+  
+     newCard=true;  
+  
+    }  
+  
+   });  
+  
+  
+   cardKnownIds[category]=  
+    currentIds;  
+  
+  
+   if(newCard){  
+  
+    showCardNotification(  
+     category  
+    );  
+  
+   }  
+  
+  }  
+ );  
+  
+});  
+  
+  
+/* =========================  
+   ABOUT  
+========================= */  
+  
+function updateAboutText(){  
+  
+ aboutText.innerHTML=  
+  t("about");  
+  
+}  
+  
+  
+/* =========================  
+   LANGUAGE UPDATE  
+========================= */  
+  
+function renderCurrentLanguage(){  
+  
+ if(  
+  currentCategory &&  
+  categoryInfo[currentCategory]  
+ ){  
+  
+  const info=  
+   categoryInfo[currentCategory];  
+  
+  
+  imageTitle.textContent=  
+   selectedLanguage==="en"  
+   ?info.enTitle  
+   :info.myTitle;  
+  
+  
+  imageSubtitle.textContent=  
+   info.subtitle;  
+  
+ }  
+  
+}  
+  
+  
+function updateLanguage(){  
+  
+ document.documentElement.lang=  
+  selectedLanguage;  
+  
+  
+ document.querySelectorAll(  
+  "[data-my]"  
+ ).forEach(el=>{  
+  
+  el.textContent=  
+   selectedLanguage==="en"  
+   ?el.dataset.en  
+   :el.dataset.my;  
+  
+ });  
+  
+  
+ languageDesc.textContent=  
+  selectedLanguage==="en"  
+  ?"English"  
+  :"မြန်မာ";  
+  
+  
+ document.getElementById(  
+  "myanmarLangBtn"  
+ ).classList.toggle(  
+  "active",  
+  selectedLanguage==="my"  
+ );  
+  
+  
+ document.getElementById(  
+  "englishLangBtn"  
+ ).classList.toggle(  
+  "active",  
+  selectedLanguage==="en"  
+ );  
+  
+  
+ updateNotificationUI();  
+  
+ updateAboutText();  
+  
+ renderCurrentLanguage();  
+  
+}  
+  
+  
+/* =========================  
+   LIVE 2D  
+========================= */  
+  
+onValue(  
+ ref(  
+  db,  
+  "live2d"  
+ ),  
+ snapshot=>{  
+  
+  const data=  
+   snapshot.val();  
+  
+  
+  const v1=  
+   document.getElementById(  
+    "value1201"  
+   );  
+  
+  
+  const v2=  
+   document.getElementById(  
+    "value0431"  
+   );  
+  
+  
+  v1.textContent=  
+   data &&  
+   data["1201"] &&  
+   data["1201"].value!==undefined &&  
+   data["1201"].value!==""  
+   ?data["1201"].value  
+   :"**";  
+  
+  
+  v2.textContent=  
+   data &&  
+   data["0431"] &&  
+   data["0431"].value!==undefined &&  
+   data["0431"].value!==""  
+   ?data["0431"].value  
+   :"**";  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   2D HISTORY  
+========================= */  
+  
+onValue(  
+ ref(  
+  db,  
+  "history"  
+ ),  
+ snapshot=>{  
+  
+  const data=  
+   snapshot.val();  
+  
+  
+  if(!data){  
+  
+   historyList.innerHTML=  
+    '<div class="empty-box">'+  
+    '<div class="empty-icon">📭</div>'+  
+    '<div style="font-size:17px;font-weight:700">'+  
+    t("noHistory")+  
+    '</div></div>';  
+  
+   return;  
+  
+  }  
+  
+  
+  const dates=  
+   Object.keys(data)  
+   .sort()  
+   .reverse();  
+  
+  
+  let html="";  
+  
+  
+  dates.forEach(date=>{  
+  
+   const day=  
+    data[date]||{};  
+  
+  
+   const parts=  
+    date.split("-");  
+  
+  
+   let displayDate=  
+    date;  
+  
+  
+   if(parts.length===3){  
+  
+    displayDate=  
+     parts[2]+"-"+  
+     parts[1]+"-"+  
+     parts[0];  
+  
+   }  
+  
+  
+   html+=  
+    '<div class="history-card">';  
+  
+  
+   html+=  
+    '<div class="history-date">📅 '+  
+    displayDate+  
+    '</div>';  
+  
+  
+   let found=false;  
+  
+  
+   [  
+    ["1201","12:01 PM"],  
+    ["0431","04:31 PM"]  
+   ].forEach(slot=>{  
+  
+    const value=  
+     day[slot[0]];  
+  
+  
+    if(  
+     value!==undefined &&  
+     value!==null &&  
+     value!==""  
+    ){  
+  
+     found=true;  
+  
+  
+     html+=`  
+  
+      <div class="result-row">  
+  
+       <div>  
+  
+        <div class="result-time">  
+         ${slot[1]}  
+        </div>  
+  
+        <div class="result-label">  
+         2D Result  
+        </div>  
+  
+       </div>  
+  
+       <div class="result-value">  
+        ${value}  
+       </div>  
+  
+      </div>  
+  
+     `;  
+  
+    }  
+  
+   });  
+  
+  
+   if(!found){  
+  
+    html+=  
+     '<div style="padding:15px;text-align:center;color:#7b8494">'+  
+     t("noResult")+  
+     '</div>';  
+  
+   }  
+  
+  
+   html+="</div>";  
+  
+  });  
+  
+  
+  historyList.innerHTML=  
+   html;  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   3D HISTORY  
+========================= */  
+  
+onValue(  
+ ref(  
+  db,  
+  "threeDHistory"  
+ ),  
+ snapshot=>{  
+  
+  const data=  
+   snapshot.val();  
+  
+  
+  if(!data){  
+  
+   threeDList.innerHTML=  
+    '<div class="empty-box">'+  
+    '<div class="empty-icon">📭</div>'+  
+    '<div style="font-size:17px;font-weight:700">'+  
+    t("no3D")+  
+    '</div>'+  
+    '<div style="font-size:13px;margin-top:6px">'+  
+    t("admin3d")+  
+    '</div></div>';  
+  
+   return;  
+  
+  }  
+  
+  
+  const dates=  
+   Object.keys(data)  
+   .sort()  
+   .reverse();  
+  
+  
+  let html="";  
+  
+  
+  dates.forEach(date=>{  
+  
+   const item=  
+    data[date]||{};  
+  
+  
+   const parts=  
+    date.split("-");  
+  
+  
+   let displayDate=  
+    date;  
+  
+  
+   if(parts.length===3){  
+  
+    displayDate=  
+     parts[2]+"-"+  
+     parts[1]+"-"+  
+     parts[0];  
+  
+   }  
+  
+  
+   const value=  
+    item.value!==undefined &&  
+    item.value!==null &&  
+    item.value!==""  
+    ?item.value  
+    :"---";  
+  
+  
+   html+=`  
+  
+    <div class="three-card">  
+  
+     <div class="three-date">  
+      📅 ${displayDate}  
+     </div>  
+  
+     <div style="text-align:center;color:#687386;font-size:13px">  
+      3D Result  
+     </div>  
+  
+     <div class="three-value">  
+      ${value}  
+     </div>  
+  
+    </div>  
+  
+   `;  
+  
+  });  
+  
+  
+  threeDList.innerHTML=  
+   html;  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   SUGGESTIONS  
+========================= */  
+  
+onValue(  
+ ref(  
+  db,  
+  "suggestions"  
+ ),  
+ snapshot=>{  
+  
+  const data=  
+   snapshot.val();  
+  
+  
+  if(!data){  
+  
+   suggestionList.innerHTML=  
+    '<div class="empty-box">'+  
+    '<div class="empty-icon">💡</div>'+  
+    t("noSuggestion")+  
+    '</div>';  
+  
+  
+   homeSuggestionText.textContent=  
+    t("noSuggestion");  
+  
+   return;  
+  
+  }  
+  
+  
+  const items=  
+   Object.keys(data)  
+   .map(key=>({  
+  
+    id:key,  
+  
+    item:  
+     data[key]||{}  
+  
+   }))  
+   .sort(  
+    (a,b)=>  
+     (b.item.createdAt||0)-  
+     (a.item.createdAt||0)  
+   );  
+  
+  
+  let html="";  
+  
+  
+  items.forEach(obj=>{  
+  
+   const text=  
+    obj.item.text||"";  
+  
+  
+   if(!text)return;  
+  
+  
+   let dateText="";  
+  
+  
+   if(obj.item.createdAt){  
+  
+    const d=  
+     new Date(  
+      obj.item.createdAt  
+     );  
+  
+  
+    dateText=  
+     d.getDate()+"-"+  
+     String(  
+      d.getMonth()+1  
+     ).padStart(2,"0")+"-"+  
+     d.getFullYear();  
+  
+   }  
+  
+  
+   html+=`  
+  
+    <div class="suggestion-card">  
+  
+     <h3>  
+      ${t("suggestion")}  
+     </h3>  
+  
+     <p>  
+      ${text}  
+     </p>  
+  
+     ${  
+      dateText  
+      ?'<div style="margin-top:10px;color:#9aa2b0;font-size:11px;text-align:right">📅 '+  
+       dateText+  
+       '</div>'  
+      :""  
+     }  
+  
+    </div>  
+  
+   `;  
+  
+  });  
+  
+  
+  if(!html){  
+  
+   html=  
+    '<div class="empty-box">'+  
+    '<div class="empty-icon">💡</div>'+  
+    t("noSuggestion")+  
+    '</div>';  
+  
+  }  
+  
+  
+  suggestionList.innerHTML=  
+   html;  
+  
+  
+  const latest=  
+   items.find(  
+    obj=>  
+     obj.item &&  
+     obj.item.text  
+   );  
+  
+  
+  homeSuggestionText.textContent=  
+   latest  
+   ?latest.item.text  
+   :t("noSuggestion");  
+  
+ }  
+);  
+  
+  
 /* =========================
-   DATE & CLOCK
+   KYL & ZHA CARDS
 ========================= */
 
-function updateDateTime(){
-
- var now=new Date();
-
- var day=
-  String(now.getDate()).padStart(2,"0");
-
- var month=
-  String(now.getMonth()+1).padStart(2,"0");
-
- var year=
-  now.getFullYear();
-
- var hour=
-  now.getHours();
-
- var minute=
-  String(now.getMinutes()).padStart(2,"0");
-
- var second=
-  String(now.getSeconds()).padStart(2,"0");
-
- var ampm=
-  hour>=12?"PM":"AM";
-
- hour=hour%12;
-
- if(hour===0)hour=12;
-
- hour=
-  String(hour).padStart(2,"0");
-
- document.getElementById(
-  "liveDate"
- ).textContent=
-  "📅 "+day+"-"+month+"-"+year;
-
- document.getElementById(
-  "liveClock"
- ).textContent=
-  "🕐 "+hour+":"+minute+":"+second+" "+ampm;
-
-}
-
-updateDateTime();
-
-setInterval(
- updateDateTime,
- 1000
-);
-
-</script><script type="module">
-
-import{
- initializeApp
-}from"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-import{
- getDatabase,
- ref,
- onValue
-}from"https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-
-
-/* =========================
-   FIREBASE
-========================= */
-
-const firebaseConfig={
-
- apiKey:
- "AIzaSyCgY-HbhUglVF4xZcw7wgUGIF_yCgc2g",
-
- authDomain:
- "myanmar-2d-stock-91737.firebaseapp.com",
-
- projectId:
- "myanmar-2d-stock-91737",
-
- storageBucket:
- "myanmar-2d-stock-91737.firebasestorage.app",
-
- messagingSenderId:
- "899567044524",
-
- appId:
- "1:899567044524:web:853c9cbddd923184ce9c09",
-
- measurementId:
- "G-13XVY11MFJ"
-
-};
-
-const app=
- initializeApp(firebaseConfig);
-
-const db=
- getDatabase(app);
-
-
-/* =========================
-   FIXED HELPER FUNCTIONS
-========================= */
-
-/*
-   This function was missing before.
-   Image cards and Suggestions use it.
-*/
-
-function escapeHtml(value){
-
- return String(value ?? "")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
-}
-
-
-/*
-   This function was missing before.
-   2D History uses it.
-*/
-
-function historyValue(item){
-
- if(item===undefined ||
-    item===null){
-
-  return undefined;
-
- }
-
- if(typeof item==="object"){
-
-  if(
-   item.value!==undefined &&
-   item.value!==null &&
-   item.value!==""
-  ){
-
-   return item.value;
-
-  }
-
-  if(
-   item.result!==undefined &&
-   item.result!==null &&
-   item.result!==""
-  ){
-
-   return item.result;
-
-  }
-
-  return undefined;
-
- }
-
- return item;
-
-}
-
-
-/* =========================
-   DOM
-========================= */
-
-const imagePage=
- document.getElementById(
-  "imagePage"
- );
-
-const imageBackBtn=
- document.getElementById(
-  "imageBackBtn"
- );
-
-const imageTitle=
- document.getElementById(
-  "imageTitle"
- );
-
-const imageSubtitle=
- document.getElementById(
-  "imageSubtitle"
- );
-
-const imageList=
- document.getElementById(
-  "imageList"
- );
-
-const historyPage=
- document.getElementById(
-  "historyPage"
- );
-
-const historyList=
- document.getElementById(
-  "historyList"
- );
-
-const threeDPage=
- document.getElementById(
-  "threeDHistoryPage"
- );
-
-const threeDList=
- document.getElementById(
-  "threeDList"
- );
-
-const suggestionPage=
- document.getElementById(
-  "suggestionPage"
- );
-
-const suggestionList=
- document.getElementById(
-  "suggestionList"
- );
-
-const homeSuggestionText=
- document.getElementById(
-  "homeSuggestionText"
- );
-
-const settingsPage=
- document.getElementById(
-  "settingsPage"
- );
-
-const navHome=
- document.getElementById(
-  "navHome"
- );
-
-const navHistory=
- document.getElementById(
-  "navHistory"
- );
-
-const navSuggestion=
- document.getElementById(
-  "navSuggestion"
- );
-
-const navSettings=
- document.getElementById(
-  "navSettings"
- );
-
-const languageModal=
- document.getElementById(
-  "languageModal"
- );
-
-const aboutModal=
- document.getElementById(
-  "aboutModal"
- );
-
-const notificationSwitch=
- document.getElementById(
-  "notificationSwitch"
- );
-
-const notificationDesc=
- document.getElementById(
-  "notificationDesc"
- );
-
-const languageDesc=
- document.getElementById(
-  "languageDesc"
- );
-
-const aboutText=
- document.getElementById(
-  "aboutText"
- );
-
-const cardNotification=
- document.getElementById(
-  "cardNotification"
- );
-
-const cardNotificationTitle=
- document.getElementById(
-  "cardNotificationTitle"
- );
-
-const cardNotificationText=
- document.getElementById(
-  "cardNotificationText"
- );
-
-const cardNotificationClose=
- document.getElementById(
-  "cardNotificationClose"
- );
-
-
-/* =========================
-   LANGUAGE
-========================= */
-
-let selectedLanguage=
- localStorage.getItem("language")||"my";
-
-
-const translations={
-
- my:{
-
-  notificationOn:
-   "အသိပေးချက်များ ဖွင့်ထားသည်",
-
-  notificationOff:
-   "အသိပေးချက်များ ပိတ်ထားသည်",
-
-  noHistory:
-   "မှတ်တမ်းမရှိသေးပါ",
-
-  noResult:
-   "ရလဒ်မရှိသေးပါ",
-
-  no3D:
-   "3D History မရှိသေးပါ",
-
-  noSuggestion:
-   "အကြံပြုချက်မရှိသေးပါ",
-
-  noImage:
-   "ပုံမရှိသေးပါ",
-
-  admin3d:
-   "Admin မှ 3D နံပါတ်ထည့်ပြီးနောက် ဒီနေရာမှာ ပေါ်လာပါမယ်။",
-
-  adminImage:
-   "Admin မှ ပုံတင်ပြီးနောက် ဒီနေရာမှာ ပေါ်လာပါမယ်။",
-
-  loadingImages:
-   "ပုံများ Loading လုပ်နေပါသည်...",
-
-  suggestion:
-   "💡 အကြံပြုချက်",
-
-  about:
-   "<b>Myanmar 2D Stock</b><br><br>"+
-   "2D Live Result၊ 2D History၊ 3D History နှင့် Card များကို ကြည့်ရှုနိုင်သော App ဖြစ်ပါသည်။<br><br>"+
-   "Version 1.0",
-
-  cardNotice:
-   "Card အသစ်တင်ပြီးပါပြီ",
-
-  cardNoticeText:
-   "Card အသစ်ကို ဝင်ကြည့်နိုင်ပါပြီ။"
-
- },
-
- en:{
-
-  notificationOn:
-   "Notifications are ON",
-
-  notificationOff:
-   "Notifications are OFF",
-
-  noHistory:
-   "No history yet",
-
-  noResult:
-   "No result yet",
-
-  no3D:
-   "No 3D history yet",
-
-  noSuggestion:
-   "No suggestions yet",
-
-  noImage:
-   "No images yet",
-
-  admin3d:
-   "3D results will appear here after Admin adds a number.",
-
-  adminImage:
-   "Images will appear here after Admin uploads them.",
-
-  loadingImages:
-   "Loading images...",
-
-  suggestion:
-   "💡 Suggestion",
-
-  about:
-   "<b>Myanmar 2D Stock</b><br><br>"+
-   "An app for viewing 2D Live Results, 2D History, 3D History and Cards.<br><br>"+
-   "Version 1.0",
-
-  cardNotice:
-   "New Card uploaded",
-
-  cardNoticeText:
-   "You can open the Card now."
-
- }
-
-};
-
-
-function t(key){
-
- return translations[
-  selectedLanguage
- ][key]||key;
-
-}
-
-
-/* =========================
-   CATEGORY
-========================= */
-
-let currentCategory=null;
-
-let imageUnsubscribe=null;
-
-
-const categoryInfo={
-
- daily:{
-  myTitle:"📅 နေ့တိုက်ကဒ်",
-  enTitle:"📅 Daily Cards",
-  subtitle:"Daily Cards"
- },
-
- thai:{
-  myTitle:"⚜️ ထိုင်းကဒ်",
-  enTitle:"⚜️ Thai Cards",
-  subtitle:"Thai Cards"
- },
-
- total:{
-  myTitle:"🗂️ Total Cards",
-  enTitle:"🗂️ Total Cards",
-  subtitle:"Total Cards"
- },
-
- weekly:{
-  myTitle:"🎁 တစ်ပတ်စာကဒ်များ",
-  enTitle:"🎁 Weekly Cards",
-  subtitle:"Weekly Cards"
- }
-
-};
-
-
-/* =========================
-   NOTIFICATION SETTING
-========================= */
-
-let notificationsOn=
- localStorage.getItem(
-  "notificationsOn"
- )!=="false";
-
-
-function updateNotificationUI(){
-
- notificationSwitch.classList.toggle(
-  "on",
-  notificationsOn
- );
-
- notificationDesc.textContent=
-  notificationsOn
-  ?t("notificationOn")
-  :t("notificationOff");
-
-}
-
-
-/* =========================
-   CARD NOTIFICATION
-========================= */
-
-let notificationTimer=null;
-
-let lastNotificationCategory=null;
-
-
-function showCardNotification(category){
-
- if(!notificationsOn)return;
-
- const info=
-  categoryInfo[category];
-
- if(!info)return;
-
- lastNotificationCategory=
-  category;
-
-
- cardNotificationTitle.textContent=
-  t("cardNotice");
-
-
- cardNotificationText.textContent=
-  selectedLanguage==="en"
-  ?info.enTitle+
-   " — "+
-   t("cardNoticeText")
-  :info.myTitle+
-   " — "+
-   t("cardNoticeText");
-
-
- cardNotification.style.display=
-  "block";
-
-
- if(notificationTimer){
-
-  clearTimeout(
-   notificationTimer
-  );
-
- }
-
-
- notificationTimer=
-  setTimeout(()=>{
-
-   cardNotification.style.display=
-    "none";
-
-  },6000);
-
-}
-
-
-cardNotification.addEventListener(
- "click",
- e=>{
-
-  if(
-   e.target===
-   cardNotificationClose
-  ){
-
+onValue(
+ ref(db,"kylZhaCards"),
+ snapshot=>{
+  const data=snapshot.val();
+  if(!data){
+   kylZhaList.innerHTML='<div class="empty-box"><div class="empty-icon">📭</div><div style="font-size:17px;font-weight:700">KYL & ZHA Cards မရှိသေးပါ</div></div>';
    return;
+  }
+  const items=Object.keys(data).map(id=>({id,item:data[id]||{}})).sort((a,b)=>(b.item.createdAt||0)-(a.item.createdAt||0));
+  let html="";
+  items.forEach(obj=>{
+   const item=obj.item;
+   const text=String(item.text||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+   html+=`<div class="suggestion-card" style="margin-bottom:15px">
+     ${text?`<p style="white-space:pre-wrap;line-height:1.6">${text}</p>`:""}
+     ${item.image?`<img src="${item.image}" alt="KYL & ZHA" loading="lazy" style="width:100%;border-radius:12px;display:block;cursor:pointer" class="kyl-zha-image">`:""}
+     ${item.createdAt?`<div style="margin-top:10px;color:#9aa2b0;font-size:11px;text-align:right">📅 ${new Date(item.createdAt).toLocaleString()}</div>`:""}
+   </div>`;
+  });
+  kylZhaList.innerHTML=html||'<div class="empty-box"><div class="empty-icon">📭</div>KYL & ZHA Cards မရှိသေးပါ</div>';
+  kylZhaList.querySelectorAll('.kyl-zha-image').forEach(img=>img.addEventListener('click',()=>openFullImage(img.src)));
+ });
 
+function openKylZha(){
+ openPage(kylZhaPage);
+ setActiveNav(navKylZha);
+ history.pushState({myanmar2dPage:"kylZha"},"",location.pathname+location.search+"#kyl-zha");
+}
+
+document.getElementById("openKylZhaBtn").addEventListener("click",openKylZha);
+
+document.getElementById("kylZhaBackBtn").addEventListener("click",()=>{
+ if(location.hash==="#kyl-zha") history.back();
+ else { closeAllPages(); setActiveNav(navHome); }
+});
+
+/* =========================  
+   IMAGE CARDS  
+========================= */  
+  
+function openImageCategory(  
+ category  
+){  
+  
+ currentCategory=  
+  category;  
+  
+  
+ const info=  
+  categoryInfo[category];  
+  
+  
+ imageTitle.textContent=  
+  selectedLanguage==="en"  
+  ?info.enTitle  
+  :info.myTitle;  
+  
+  
+ imageSubtitle.textContent=  
+  info.subtitle;  
+  
+  
+ imagePage.style.display=  
+  "block";  
+  
+  
+ document.body.style.overflow=  
+  "hidden";
+
+  history.pushState(
+   {myanmar2dPage:"image-"+category},
+   "",
+   location.pathname+location.search+"#image-"+category
+  );  
+  
+  
+ imageList.innerHTML=  
+  '<div class="empty-box">'+  
+  '<div class="empty-icon">⏳</div>'+  
+  t("loadingImages")+  
+  '</div>';  
+  
+  
+ if(imageUnsubscribe){  
+  
+  imageUnsubscribe();  
+  
+  imageUnsubscribe=  
+   null;  
+  
+ }  
+  
+  
+ imageUnsubscribe=  
+  onValue(  
+   ref(  
+    db,  
+    "cards/"+category  
+   ),  
+   snapshot=>{  
+  
+    const data=  
+     snapshot.val();  
+  
+  
+    if(!data){  
+  
+     imageList.innerHTML=  
+      '<div class="empty-box">'+  
+      '<div class="empty-icon">📭</div>'+  
+      '<div style="font-size:17px;font-weight:bold;margin-bottom:6px">'+  
+      t("noImage")+  
+      '</div>'+  
+      '<div style="font-size:13px">'+  
+      t("adminImage")+  
+      '</div></div>';  
+  
+     return;  
+  
+    }  
+  
+  
+    const images=  
+     Object.keys(data)  
+     .map(key=>({  
+  
+      id:key,  
+  
+      item:  
+       data[key]||{}  
+  
+     }))  
+     .sort(  
+      (a,b)=>  
+       (b.item.createdAt||0)-  
+       (a.item.createdAt||0)  
+     );  
+  
+  
+    let html="";  
+  
+  
+    images.forEach(obj=>{  
+  
+     const item=  
+      obj.item;  
+  
+  
+     if(!item.url)return;  
+  
+  
+     html+=`  
+  
+      <div class="image-card">  
+  
+       <img  
+        src="${item.url}"  
+        alt="${item.name||"Card"}"  
+        loading="lazy"  
+        class="card-image">  
+  
+      </div>  
+  
+     `;  
+  
+    });  
+  
+  
+    if(!html){  
+  
+     html=  
+      '<div class="empty-box">'+  
+      '<div class="empty-icon">📭</div>'+  
+      t("noImage")+  
+      '</div>';  
+  
+    }  
+  
+  
+    imageList.innerHTML=  
+     html;  
+  
+  
+    document.querySelectorAll(  
+     ".card-image"  
+    ).forEach(img=>{  
+  
+     img.addEventListener(  
+      "click",  
+      ()=>{  
+  
+       openFullImage(  
+        img.src  
+       );  
+  
+      }  
+     );  
+  
+    });  
+  
+   }  
+  );  
+  
+}  
+  
+  
+/* =========================  
+   IMAGE BACK  
+========================= */  
+  
+imageBackBtn.addEventListener(  
+ "click",  
+ ()=>{  
+  
+  if(history.state && history.state.myanmar2dPage){
+   history.back();
+   return;
   }
 
-
-  if(lastNotificationCategory){
-
-   cardNotification.style.display=
-    "none";
-
-   openImageCategory(
-    lastNotificationCategory
-   );
-
-  }
-
+  imagePage.style.display="none";  
+  
+  
+  document.body.style.overflow=  
+   "";  
+  
+  
+  if(imageUnsubscribe){  
+  
+   imageUnsubscribe();  
+  
+   imageUnsubscribe=  
+    null;  
+  
+  }  
+  
+  
+  currentCategory=  
+   null;  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   CARD BUTTONS  
+========================= */  
+  
+document.getElementById(  
+ "dailyBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openImageCategory(  
+   "daily"  
+  );  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "thaiBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openImageCategory(  
+   "thai"  
+  );  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "totalBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openImageCategory(  
+   "total"  
+  );  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "weeklyBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openImageCategory(  
+   "weekly"  
+  );  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   FULL IMAGE  
+========================= */  
+  
+const fullImagePage=  
+ document.getElementById(  
+  "fullImagePage"  
+ );  
+  
+  
+const fullImage=  
+ document.getElementById(  
+  "fullImage"  
+ );  
+  
+  
+function openFullImage(src){  
+  
+ fullImage.src=  
+  src;  
+  
+  
+ fullImagePage.style.display=  
+  "flex";  
+  
+}  
+  
+  
+document.getElementById(  
+ "closeFullImage"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  fullImagePage.style.display=  
+   "none";  
+  
+  
+  fullImage.src=  
+   "";  
+  
+ }  
+);  
+  
+  
+fullImagePage.addEventListener(  
+ "click",  
+ e=>{  
+  
+  if(  
+   e.target===  
+   fullImagePage  
+  ){  
+  
+   fullImagePage.style.display=  
+    "none";  
+  
+  
+   fullImage.src=  
+    "";  
+  
+  }  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   PAGE CONTROL  
+========================= */  
+  
+function closeAllPages(){  
+  
+ document.querySelectorAll(  
+  ".page"  
+ ).forEach(page=>{  
+  
+  page.style.display=  
+   "none";  
+  
+ });  
+  
+  
+ imagePage.style.display=  
+  "none";  
+  
+  
+ document.body.style.overflow=  
+  "";  
+  
+  
+ if(imageUnsubscribe){  
+  
+  imageUnsubscribe();  
+  
+  imageUnsubscribe=  
+   null;  
+  
+ }  
+  
+  
+ currentCategory=  
+  null;  
+  
+}  
+  
+  
+function openPage(page,pageName){
+ closeAllPages();
+ page.style.display="block";
+ document.body.style.overflow="hidden";
+ if(pageName){
+  history.pushState(
+   {myanmar2dPage:pageName},
+   "",
+   location.pathname+location.search+"#"+pageName
+  );
  }
-);
-
-
-cardNotificationClose.addEventListener(
+}  
+  
+  
+function setActiveNav(active){  
+  
+ [  
+  navHome,  
+  navHistory,  
+  navSuggestion,  
+  navKylZha,
+  navSettings  
+ ].forEach(nav=>{  
+  
+  nav.classList.remove(  
+   "active"  
+  );  
+  
+ });  
+  
+  
+ active.classList.add(  
+  "active"  
+ );  
+  
+}  
+  
+  
+/* =========================  
+   HISTORY BUTTON  
+========================= */  
+  
+document.getElementById(  
+ "openHistoryBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openPage(historyPage,"history");  
+  
+  
+  setActiveNav(  
+   navHistory  
+  );  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "historyBackBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  if(history.state && history.state.myanmar2dPage){ history.back(); } else { closeAllPages(); setActiveNav(navHome); }}  
+);  
+  
+  
+/* =========================  
+   3D BUTTON  
+========================= */  
+  
+document.getElementById(  
+ "open3DHistoryBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openPage(threeDPage,"threeD");  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "threeDBackBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  if(history.state && history.state.myanmar2dPage){ history.back(); } else { closeAllPages(); setActiveNav(navHome); }}  
+);  
+  
+  
+/* =========================  
+   SUGGESTION BACK  
+========================= */  
+  
+document.getElementById(  
+ "suggestionBackBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  if(history.state && history.state.myanmar2dPage){ history.back(); } else { closeAllPages(); setActiveNav(navHome); }}  
+);  
+  
+  
+/* =========================  
+   SETTINGS BACK  
+========================= */  
+  
+document.getElementById(  
+ "settingsBackBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  if(history.state && history.state.myanmar2dPage){ history.back(); } else { closeAllPages(); setActiveNav(navHome); }}  
+);  
+  
+  
+/* =========================  
+   BOTTOM NAV  
+========================= */  
+  
+navHome.addEventListener(  
+ "click",  
+ ()=>{  
+  
+  closeAllPages();  
+  
+  
+  setActiveNav(  
+   navHome  
+  );  
+  
+  
+  window.scrollTo({  
+  
+   top:0,  
+  
+   behavior:"smooth"  
+  
+  });  
+  
+ }  
+);  
+  
+  
+navHistory.addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openPage(historyPage,"history");  
+  
+  
+  setActiveNav(  
+   navHistory  
+  );  
+  
+ }  
+);  
+  
+  
+navSuggestion.addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openPage(suggestionPage,"suggestion");  
+  
+  
+  setActiveNav(  
+   navSuggestion  
+  );  
+  
+ }  
+);  
+  
+  
+navKylZha.addEventListener(
  "click",
- e=>{
-
-  e.stopPropagation();
-
-  cardNotification.style.display=
-   "none";
-
- }
+ openKylZha
 );
 
 
-/* =========================
-   NEW CARD DETECTION
-========================= */
-
-const cardKnownIds={
-
- daily:new Set(),
-
- thai:new Set(),
-
- total:new Set(),
-
- weekly:new Set()
-
-};
-
-
-const cardReady={
-
- daily:false,
-
- thai:false,
-
- total:false,
-
- weekly:false
-
-};
-
-
-[
- "daily",
- "thai",
- "total",
- "weekly"
-].forEach(category=>{
-
- onValue(
-  ref(
-   db,
-   "cards/"+category
-  ),
-  snapshot=>{
-
-   const data=
-    snapshot.val()||{};
-
-
-   const currentIds=
-    new Set(
-     Object.keys(data)
-    );
-
-
-   if(
-    !cardReady[category]
-   ){
-
-    cardKnownIds[category]=
-     currentIds;
-
-    cardReady[category]=
-     true;
-
-    return;
-
-   }
-
-
-   let newCard=false;
-
-
-   currentIds.forEach(id=>{
-
-    if(
-     !cardKnownIds[category]
-      .has(id)
-    ){
-
-     newCard=true;
-
-    }
-
-   });
-
-
-   cardKnownIds[category]=
-    currentIds;
-
-
-   if(newCard){
-
-    showCardNotification(
-     category
-    );
-
-   }
-
-  }
+navSettings.addEventListener(  
+ "click",  
+ ()=>{  
+  
+  openPage(settingsPage,"settings");  
+  
+  
+  setActiveNav(  
+   navSettings  
+  );  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   NOTIFICATION SWITCH  
+========================= */  
+  
+document.getElementById(  
+ "notificationRow"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  notificationsOn=  
+   !notificationsOn;  
+  
+  
+  localStorage.setItem(  
+   "notificationsOn",  
+   String(  
+    notificationsOn  
+   )  
+  );  
+  
+  
+  updateNotificationUI();  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   LANGUAGE MODAL  
+========================= */  
+  
+document.getElementById(  
+ "languageRow"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  languageModal.style.display=  
+   "flex";  
+  
+  
+  updateLanguage();  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "myanmarLangBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  selectedLanguage=  
+   "my";  
+  
+  
+  localStorage.setItem(  
+   "language",  
+   "my"  
+  );  
+  
+  
+  updateLanguage();  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "englishLangBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  selectedLanguage=  
+   "en";  
+  
+  
+  localStorage.setItem(  
+   "language",  
+   "en"  
+  );  
+  
+  
+  updateLanguage();  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "closeLanguageBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  languageModal.style.display=  
+   "none";  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   ABOUT  
+========================= */  
+  
+document.getElementById(  
+ "aboutRow"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  aboutModal.style.display=  
+   "flex";  
+  
+  
+  updateAboutText();  
+  
+ }  
+);  
+  
+  
+document.getElementById(  
+ "closeAboutBtn"  
+).addEventListener(  
+ "click",  
+ ()=>{  
+  
+  aboutModal.style.display=  
+   "none";  
+  
+ }  
+);  
+  
+  
+/* =========================  
+   CLOSE MODALS  
+========================= */  
+  
+languageModal.addEventListener(  
+ "click",  
+ e=>{  
+  
+  if(  
+   e.target===  
+   languageModal  
+  ){  
+  
+   languageModal.style.display=  
+    "none";  
+  
+  }  
+  
+ }  
+);  
+  
+  
+aboutModal.addEventListener(  
+ "click",  
+ e=>{  
+  
+  if(  
+   e.target===  
+   aboutModal  
+  ){  
+  
+   aboutModal.style.display=  
+    "none";  
+  
+  }  
+  
+ }  
+);  
+  
+  
+if(!history.state || !history.state.myanmar2dRoot){
+ history.replaceState(
+  {myanmar2dRoot:true},
+  "",
+  location.pathname+location.search
  );
+}
 
+window.addEventListener("popstate",()=>{
+ closeAllPages();
+ setActiveNav(navHome);
+ document.body.style.overflow="";
+ window.scrollTo({top:0,behavior:"smooth"});
 });
 
 
-/* =========================
-   ABOUT
-========================= */
-
-function updateAboutText(){
-
- aboutText.innerHTML=
-  t("about");
-
-}
-
-
-/* =========================
-   LANGUAGE UPDATE
-========================= */
-
-function renderCurrentLanguage(){
-
- if(
-  currentCategory &&
-  categoryInfo[currentCategory]
- ){
-
-  const info=
-   categoryInfo[currentCategory];
-
-
-  imageTitle.textContent=
-   selectedLanguage==="en"
-   ?info.enTitle
-   :info.myTitle;
-
-
-  imageSubtitle.textContent=
-   info.subtitle;
-
- }
-
-}
-
-
-function updateLanguage(){
-
- document.documentElement.lang=
-  selectedLanguage;
-
-
- document.querySelectorAll(
-  "[data-my]"
- ).forEach(el=>{
-
-  el.textContent=
-   selectedLanguage==="en"
-   ?el.dataset.en
-   :el.dataset.my;
-
- });
-
-
- languageDesc.textContent=
-  selectedLanguage==="en"
-  ?"English"
-  :"မြန်မာ";
-
-
- document.getElementById(
-  "myanmarLangBtn"
- ).classList.toggle(
-  "active",
-  selectedLanguage==="my"
- );
-
-
- document.getElementById(
-  "englishLangBtn"
- ).classList.toggle(
-  "active",
-  selectedLanguage==="en"
- );
-
-
- updateNotificationUI();
-
- updateAboutText();
-
- renderCurrentLanguage();
-
-}
+/* =========================  
+   START APP  
+========================= */  
+  
+updateLanguage();  
+  
+updateNotificationUI();  
+  
+updateAboutText();  
+  
 
 
 /* =========================
-   LIVE 2D
+   INTERNET / MODERN LIVE DATA
 ========================= */
-
-onValue(
- ref(
-  db,
-  "live2d"
- ),
- snapshot=>{
-
-  const data=
-   snapshot.val();
-
-
-  const v1=
-   document.getElementById(
-    "value1201"
-   );
-
-
-  const v2=
-   document.getElementById(
-    "value0431"
-   );
-
-
-  v1.textContent=
-   data &&
-   data["1201"] &&
-   data["1201"].value!==undefined &&
-   data["1201"].value!==""
-   ?data["1201"].value
-   :"**";
-
-
-  v2.textContent=
-   data &&
-   data["0431"] &&
-   data["0431"].value!==undefined &&
-   data["0431"].value!==""
-   ?data["0431"].value
-   :"**";
-
- }
-);
-
-
-/* =========================
-   2D HISTORY
-========================= */
-
-onValue(
- ref(
-  db,
-  "history"
- ),
- snapshot=>{
-
-  const data=
-   snapshot.val();
-
-
-  if(!data){
-
-   historyList.innerHTML=
-    '<div class="empty-box">'+
-    '<div class="empty-icon">📭</div>'+
-    '<div style="font-size:17px;font-weight:700">'+
-    t("noHistory")+
-    '</div></div>';
-
-   return;
-
-  }
-
-
-  const dates=
-   Object.keys(data)
-   .sort()
-   .reverse();
-
-
-  let html="";
-
-
-  dates.forEach(date=>{
-
-   const day=
-    data[date]||{};
-
-
-   const parts=
-    date.split("-");
-
-
-   let displayDate=
-    date;
-
-
-   if(parts.length===3){
-
-    displayDate=
-     parts[2]+"-"+
-     parts[1]+"-"+
-     parts[0];
-
-   }
-
-
-   html+=
-    '<div class="history-card">';
-
-
-   html+=
-    '<div class="history-date">📅 '+
-    escapeHtml(displayDate)+
-    '</div>';
-
-
-   let found=false;
-
-
-   [
-    ["1201","12:01 PM"],
-    ["0431","04:31 PM"]
-   ].forEach(slot=>{
-
-    const value=
-     historyValue(day[slot[0]]);
-
-
-    if(
-     value!==undefined &&
-     value!==null &&
-     value!==""
-    ){
-
-     found=true;
-
-
-     html+=`
-
-      <div class="result-row">
-
-       <div>
-
-        <div class="result-time">
-         ${slot[1]}
-        </div>
-
-        <div class="result-label">
-         2D Result
-        </div>
-
-       </div>
-
-       <div class="result-value">
-        ${escapeHtml(value)}
-       </div>
-
-      </div>
-
-     `;
-
-    }
-
-   });
-
-
-   if(!found){
-
-    html+=
-     '<div style="padding:15px;text-align:center;color:#7b8494">'+
-     t("noResult")+
-     '</div>';
-
-   }
-
-
-   html+="</div>";
-
-  });
-
-
-  historyList.innerHTML=
-   html;
-
- }
-);
-
-
-/* =========================
-   3D HISTORY
-========================= */
-
-onValue(
- ref(
-  db,
-  "threeDHistory"
- ),
- snapshot=>{
-
-  const data=
-   snapshot.val();
-
-
-  if(!data){
-
-   threeDList.innerHTML=
-    '<div class="empty-box">'+
-    '<div class="empty-icon">📭</div>'+
-    '<div style="font-size:17px;font-weight:700">'+
-    t("no3D")+
-    '</div>'+
-    '<div style="font-size:13px;margin-top:6px">'+
-    t("admin3d")+
-    '</div></div>';
-
-   return;
-
-  }
-
-
-  const dates=
-   Object.keys(data)
-   .sort()
-   .reverse();
-
-
-  let html="";
-
-
-  dates.forEach(date=>{
-
-   const item=
-    data[date]||{};
-
-
-   const parts=
-    date.split("-");
-
-
-   let displayDate=
-    date;
-
-
-   if(parts.length===3){
-
-    displayDate=
-     parts[2]+"-"+
-     parts[1]+"-"+
-     parts[0];
-
-   }
-
-
-   const value=
-    item.value!==undefined &&
-    item.value!==null &&
-    item.value!==""
-    ?item.value
-    :"---";
-
-
-   html+=`
-
-    <div class="three-card">
-
-     <div class="three-date">
-      📅 ${escapeHtml(displayDate)}
-     </div>
-
-     <div style="text-align:center;color:#687386;font-size:13px">
-      3D Result
-     </div>
-
-     <div class="three-value">
-      ${escapeHtml(value)}
-     </div>
-
-    </div>
-
-   `;
-
-  });
-
-
-  threeDList.innerHTML=
-   html;
-
- }
-);
-
-
-/* =========================
-   SUGGESTIONS
-========================= */
-
-onValue(
- ref(
-  db,
-  "suggestions"
- ),
- snapshot=>{
-
-  const data=
-   snapshot.val();
-
-
-  if(!data){
-
-   suggestionList.innerHTML=
-    '<div class="empty-box">'+
-    '<div class="empty-icon">💡</div>'+
-    t("noSuggestion")+
-    '</div>';
-
-
-   homeSuggestionText.textContent=
-    t("noSuggestion");
-
-   return;
-
-  }
-
-
-  const items=
-   Object.keys(data)
-   .map(key=>({
-
-    id:key,
-
-    item:
-     data[key]||{}
-
-   }))
-   .sort(
-    (a,b)=>
-     (b.item.createdAt||0)-
-     (a.item.createdAt||0)
-   );
-
-
-  let html="";
-
-
-  items.forEach(obj=>{
-
-   const text=
-    obj.item.text||"";
-
-
-   if(!text)return;
-
-
-   let dateText="";
-
-
-   if(obj.item.createdAt){
-
-    const d=
-     new Date(
-      obj.item.createdAt
-     );
-
-
-    dateText=
-     d.getDate()+"-"+
-     String(
-      d.getMonth()+1
-     ).padStart(2,"0")+"-"+
-     d.getFullYear();
-
-   }
-
-
-   html+=`
-
-    <div class="suggestion-card">
-
-     <h3>
-      ${t("suggestion")}
-     </h3>
-
-     <p>
-      ${escapeHtml(text)}
-     </p>
-
-     ${
-      dateText
-      ?'<div style="margin-top:10px;color:#9aa2b0;font-size:11px;text-align:right">📅 '+
-       escapeHtml(dateText)+
-       '</div>'
-      :""
-     }
-
-    </div>
-
-   `;
-
-  });
-
-
-  if(!html){
-
-   html=
-    '<div class="empty-box">'+
-    '<div class="empty-icon">💡</div>'+
-    t("noSuggestion")+
-    '</div>';
-
-  }
-
-
-  suggestionList.innerHTML=
-   html;
-
-
-  const latest=
-   items.find(
-    obj=>
-     obj.item &&
-     obj.item.text
-   );
-
-
-  homeSuggestionText.textContent=
-   latest
-   ?latest.item.text
-   :t("noSuggestion");
-
- }
-);
-
-
-/* =========================
-   IMAGE CARDS
-========================= */
-
-function openImageCategory(
- category
-){
-
- history.pushState(
-  {
-   myanmar2dPage:"cards",
-   category:category
-  },
-  "",
-  "#cards-"+category
- );
-
-
- currentCategory=
-  category;
-
-
- const info=
-  categoryInfo[category];
-
-
- imageTitle.textContent=
-  selectedLanguage==="en"
-  ?info.enTitle
-  :info.myTitle;
-
-
- imageSubtitle.textContent=
-  info.subtitle;
-
-
- imagePage.style.display=
-  "block";
-
-
- document.body.style.overflow=
-  "hidden";
-
-
- imageList.innerHTML=
-  '<div class="empty-box">'+
-  '<div class="empty-icon">⏳</div>'+
-  t("loadingImages")+
-  '</div>';
-
-
- if(imageUnsubscribe){
-
-  imageUnsubscribe();
-
-  imageUnsubscribe=
-   null;
-
- }
-
-
- imageUnsubscribe=
-  onValue(
-   ref(
-    db,
-    "cards/"+category
-   ),
-   snapshot=>{
-
-    const data=
-     snapshot.val();
-
-
-    if(!data){
-
-     imageList.innerHTML=
-      '<div class="empty-box">'+
-      '<div class="empty-icon">📭</div>'+
-      '<div style="font-size:17px;font-weight:bold;margin-bottom:6px">'+
-      t("noImage")+
-      '</div>'+
-      '<div style="font-size:13px">'+
-      t("adminImage")+
-      '</div></div>';
-
-     return;
-
-    }
-
-
-    const images=
-     Object.keys(data)
-     .map(key=>({
-
-      id:key,
-
-      item:
-       data[key]||{}
-
-     }))
-     .sort(
-      (a,b)=>
-       (b.item.createdAt||0)-
-       (a.item.createdAt||0)
-     );
-
-
-    let html="";
-
-
-    images.forEach(obj=>{
-
-     const item=
-      obj.item;
-
-
-     if(!item.url)return;
-
-
-     html+=`
-
-      <div class="image-card">
-
-       <img
-        src="${escapeHtml(item.url)}"
-        alt="${escapeHtml(item.name||"Card")}"
-        loading="lazy"
-        class="card-image">
-
-      </div>
-
-     `;
-
-    });
-
-
-    if(!html){
-
-     html=
-      '<div class="empty-box">'+
-      '<div class="empty-icon">📭</div>'+
-      t("noImage")+
-      '</div>';
-
-    }
-
-
-    imageList.innerHTML=
-     html;
-
-
-    document.querySelectorAll(
-     ".card-image"
-    ).forEach(img=>{
-
-     img.addEventListener(
-      "click",
-      ()=>{
-
-       openFullImage(
-        img.src
-       );
-
-      }
-     );
-
-    });
-
-   }
-  );
-
-}
-
-
-/* =========================
-   IMAGE BACK
-========================= */
-
-imageBackBtn.addEventListener(
- "click",
- ()=>{
-
-  if(
-   history.state &&
-   history.state.myanmar2dPage==="cards"
-  ){
-
-   history.back();
-
-  }else{
-
-   closeAllPages();
-
-  }
-
- }
-);
-
-
-/* =========================
-   CARD BUTTONS
-========================= */
-
-document.getElementById(
- "dailyBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openImageCategory(
-   "daily"
-  );
-
- }
-);
-
-
-document.getElementById(
- "thaiBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openImageCategory(
-   "thai"
-  );
-
- }
-);
-
-
-document.getElementById(
- "totalBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openImageCategory(
-   "total"
-  );
-
- }
-);
-
-
-document.getElementById(
- "weeklyBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openImageCategory(
-   "weekly"
-  );
-
- }
-);
-
-
-/* =========================
-   FULL IMAGE
-========================= */
-
-const fullImagePage=
- document.getElementById(
-  "fullImagePage"
- );
-
-
-const fullImage=
- document.getElementById(
-  "fullImage"
- );
-
-
-function openFullImage(src){
-
- fullImage.src=
-  src;
-
-
- fullImagePage.style.display=
-  "flex";
-
-}
-
-
-document.getElementById(
- "closeFullImage"
-).addEventListener(
- "click",
- ()=>{
-
-  fullImagePage.style.display=
-   "none";
-
-
-  fullImage.src=
-   "";
-
- }
-);
-
-
-fullImagePage.addEventListener(
- "click",
- e=>{
-
-  if(
-   e.target===
-   fullImagePage
-  ){
-
-   fullImagePage.style.display=
-    "none";
-
-
-   fullImage.src=
-    "";
-
-  }
-
- }
-);
-
-
-/* =========================
-   PAGE CONTROL
-========================= */
-
-function closeAllPages(){
-
- document.querySelectorAll(
-  ".page"
- ).forEach(page=>{
-
-  page.style.display=
-   "none";
-
- });
-
-
- imagePage.style.display=
-  "none";
-
-
- document.body.style.overflow=
-  "";
-
-
- if(imageUnsubscribe){
-
-  imageUnsubscribe();
-
-  imageUnsubscribe=
-   null;
-
- }
-
-
- currentCategory=
-  null;
-
-}
-
-
-let currentPageElement=null;
-
-
-function showPage(page){
-
- closeAllPages();
-
- page.style.display=
-  "block";
-
- document.body.style.overflow=
-  "hidden";
-
- currentPageElement=
-  page;
-
-}
-
-
-function openPage(page){
-
- showPage(page);
-
- if(page && page.id){
-
-  const state={
-   myanmar2dPage:page.id
-  };
-
-  if(
-   !history.state ||
-   history.state.myanmar2dPage!==page.id
-  ){
-
-   history.pushState(
-    state,
-    "",
-    "#"+page.id
-   );
-
-  }
-
- }
-
-}
-
-
-function goBack(){
-
- closeAllPages();
-
- setActiveNav(
-  navHome
- );
-
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
-
- history.replaceState(
-  {
-   myanmar2dPage:"home"
-  },
-  "",
-  location.pathname+
-  location.search
- );
-
-}
-
-
-window.addEventListener(
- "popstate",
- function(){
-
-  closeAllPages();
-
-  setActiveNav(
-   navHome
-  );
-
-  window.scrollTo({
-   top:0,
-   behavior:"smooth"
-  });
-
- }
-);
-
-
-function setActiveNav(active){
-
- [
-  navHome,
-  navHistory,
-  navSuggestion,
-  navSettings
- ].forEach(nav=>{
-
-  nav.classList.remove(
-   "active"
-  );
-
- });
-
-
- active.classList.add(
-  "active"
- );
-
-}
-
-
-/* =========================
-   HISTORY BUTTON
-========================= */
-
-document.getElementById(
- "openHistoryBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openPage(
-   historyPage
-  );
-
-
-  setActiveNav(
-   navHistory
-  );
-
- }
-);
-
-
-document.getElementById(
- "historyBackBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  goBack();
-
- }
-);
-
-
-/* =========================
-   3D BUTTON
-========================= */
-
-document.getElementById(
- "open3DHistoryBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  openPage(
-   threeDPage
-  );
-
- }
-);
-
-
-document.getElementById(
- "threeDBackBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  goBack();
-
- }
-);
-
-
-/* =========================
-   SUGGESTION BACK
-========================= */
-
-document.getElementById(
- "suggestionBackBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  goBack();
-
- }
-);
-
-
-/* =========================
-   SETTINGS BACK
-========================= */
-
-document.getElementById(
- "settingsBackBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  goBack();
-
- }
-);
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-navHome.addEventListener(
- "click",
- ()=>{
-
-  closeAllPages();
-
-
-  setActiveNav(
-   navHome
-  );
-
-
-  window.scrollTo({
-
-   top:0,
-
-   behavior:"smooth"
-
-  });
-
- }
-);
-
-
-navHistory.addEventListener(
- "click",
- ()=>{
-
-  openPage(
-   historyPage
-  );
-
-
-  setActiveNav(
-   navHistory
-  );
-
- }
-);
-
-
-navSuggestion.addEventListener(
- "click",
- ()=>{
-
-  openPage(
-   suggestionPage
-  );
-
-
-  setActiveNav(
-   navSuggestion
-  );
-
- }
-);
-
-
-navSettings.addEventListener(
- "click",
- ()=>{
-
-  openPage(
-   settingsPage
-  );
-
-
-  setActiveNav(
-   navSettings
-  );
-
- }
-);
-
-
-/* =========================
-   NOTIFICATION SWITCH
-========================= */
-
-document.getElementById(
- "notificationRow"
-).addEventListener(
- "click",
- ()=>{
-
-  notificationsOn=
-   !notificationsOn;
-
-
-  localStorage.setItem(
-   "notificationsOn",
-   String(
-    notificationsOn
-   )
-  );
-
-
-  updateNotificationUI();
-
- }
-);
-
-
-/* =========================
-   LANGUAGE MODAL
-========================= */
-
-document.getElementById(
- "languageRow"
-).addEventListener(
- "click",
- ()=>{
-
-  languageModal.style.display=
-   "flex";
-
-
-  updateLanguage();
-
- }
-);
-
-
-document.getElementById(
- "myanmarLangBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  selectedLanguage=
-   "my";
-
-  localStorage.setItem(
-   "language",
-   "my"
-  );
-
-  updateLanguage();
-
- }
-);
-
-
-document.getElementById(
- "englishLangBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  selectedLanguage=
-   "en";
-
-  localStorage.setItem(
-   "language",
-   "en"
-  );
-
-  updateLanguage();
-
- }
-);
-
-
-document.getElementById(
- "closeLanguageBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  languageModal.style.display=
-   "none";
-
- }
-);
-
-
-/* =========================
-   ABOUT
-========================= */
-
-document.getElementById(
- "aboutRow"
-).addEventListener(
- "click",
- ()=>{
-
-  aboutModal.style.display=
-   "flex";
-
-
-  updateAboutText();
-
- }
-);
-
-
-document.getElementById(
- "closeAboutBtn"
-).addEventListener(
- "click",
- ()=>{
-
-  aboutModal.style.display=
-   "none";
-
- }
-);
-
-
-/* =========================
-   CLOSE MODALS
-========================= */
-
-languageModal.addEventListener(
- "click",
- e=>{
-
-  if(
-   e.target===
-   languageModal
-  ){
-
-   languageModal.style.display=
-    "none";
-
-  }
-
- }
-);
-
-
-aboutModal.addEventListener(
- "click",
- e=>{
-
-  if(
-   e.target===
-   aboutModal
-  ){
-
-   aboutModal.style.display=
-    "none";
-
-  }
-
- }
-);
-
-
-/* =========================
-   START APP
-========================= */
-
-updateLanguage();
-
-updateNotificationUI();
-
-updateAboutText();
-
-
-try{
-
- history.replaceState(
-  {
-   myanmar2dPage:null
-  },
-  "",
-  location.pathname+
-  location.search
- );
-
-}catch(e){}
-
-</script></body>
-</html>
+onValue(ref(db,"internetModern"),snapshot=>{
+ const data=snapshot.val()||{};
+ const i0930=document.getElementById("internet0930");
+ const m0930=document.getElementById("modern0930");
+ const i0200=document.getElementById("internet0200");
+ const m0200=document.getElementById("modern0200");
+
+ const setVal=(el,val)=>{
+   if(!el)return;
+   const clean=val===undefined||val===null?"":String(val).trim();
+   el.textContent=(clean!=="" && clean!=="##")?clean:"--";
+   el.classList.remove("loading");
+ };
+
+ setVal(i0930,data["0930"]&&data["0930"].internet);
+ setVal(m0930,data["0930"]&&data["0930"].modern);
+ setVal(i0200,data["0200"]&&data["0200"].internet);
+ setVal(m0200,data["0200"]&&data["0200"].modern);
+});
+
+</script>  </body>  
+</html>  
