@@ -486,60 +486,76 @@ body{
 }  
   
   
-/* =========================  
-   HISTORY  
-========================= */  
-  
-.history-date{  
- background:#172033;  
- color:white;  
- border-radius:11px;  
- padding:11px 13px;  
- font-weight:700;  
- margin-bottom:8px  
-}  
-  
-.result-row{  
- display:flex;  
- align-items:center;  
- justify-content:space-between;  
- padding:12px 4px;  
- border-bottom:1px solid #edf0f5  
-}  
-  
-.result-row:last-child{  
- border-bottom:0  
-}  
-  
-.result-time{  
- font-size:13px;  
- color:#687386  
-}  
-  
-.result-label{  
- font-size:12px;  
- color:#8a93a3;  
- margin-top:2px  
-}  
-  
-.result-value{  
- font-size:32px;  
- font-weight:800;  
- color:#0757d9  
-}  
-  
-.three-date{  
- font-size:14px;  
- color:#687386;  
- margin-bottom:8px  
-}  
-  
-.three-value{  
- text-align:center;  
- font-size:48px;  
- font-weight:900;  
- color:#0757d9;  
- padding:10px  
+/* =========================
+   HISTORY
+========================= */
+
+.history-card{
+ background:#fff;
+ border:5px solid #111;
+ border-radius:16px;
+ margin-bottom:14px;
+ padding:10px;
+ box-shadow:0 3px 10px rgba(0,0,0,.06)
+}
+
+.history-date{
+ background:#fff;
+ color:#172033;
+ border-radius:8px;
+ padding:4px 3px 9px;
+ font-size:14px;
+ font-weight:800;
+ text-align:center;
+ margin-bottom:2px
+}
+
+.history-result{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+ text-align:center
+}
+
+.history-result-item{padding:5px 2px 3px}
+.history-result-time{font-size:13px;font-weight:700;color:#172033;white-space:nowrap}
+.history-result-label{font-size:11px;color:#8a93a3;margin-top:3px}
+.history-result-value{font-size:30px;line-height:1.05;font-weight:900;color:#0757d9;margin-top:5px}
+.result-row{display:none}
+.result-time,.result-label,.result-value{display:none}
+
+.three-card{
+ background:#fff;
+ border:5px solid #111;
+ border-radius:16px;
+ margin-bottom:14px;
+ padding:10px;
+ box-shadow:0 3px 10px rgba(0,0,0,.06)
+}
+
+.three-date{
+ font-size:14px;
+ color:#172033;
+ font-weight:800;
+ text-align:left;
+ margin-bottom:8px
+}
+
+.three-card > div:nth-child(2){
+ text-align:center !important;
+ color:#172033 !important;
+ font-size:13px !important;
+ font-weight:700;
+ margin-top:2px
+}
+
+.three-value{
+ text-align:center;
+ font-size:42px;
+ line-height:1.05;
+ font-weight:900;
+ color:#0757d9;
+ padding:8px 5px 5px
 }  
   
   
@@ -547,6 +563,19 @@ body{
    SUGGESTION PAGE  
 ========================= */  
   
+/* =========================
+   INTERNET / MODERN
+========================= */
+.market-box{margin:0 15px 16px;padding:12px 15px 14px;background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);border-radius:24px;box-shadow:0 8px 24px rgba(7,87,217,.10);border:1px solid rgba(7,87,217,.06);position:relative;overflow:hidden}
+.market-box::before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(18,167,255,.06);top:-95px;right:-50px;pointer-events:none}
+.market-head,.market-row{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr 1fr;column-gap:14px;align-items:center}
+.market-head{margin-bottom:7px;font-weight:800;color:#687386;font-size:14px}
+.market-head>div:not(:first-child){background:#eaf4ff;color:#0757d9;text-align:center;padding:8px 6px;border-radius:16px;font-size:15px}
+.market-row{min-height:62px}
+.market-time{color:#687386;font-size:15px;font-weight:700;padding-left:3px}
+.market-value{height:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#ffffff 0%,#eef7ff 100%);border:1px solid rgba(7,87,217,.08);border-radius:19px;box-shadow:0 4px 12px rgba(7,87,217,.08);color:#0757d9;font-size:24px;font-weight:900}
+.market-value.loading{color:#0757d9;opacity:1}
+
 .suggestion-card h3{  
  font-size:16px;  
  margin-bottom:8px  
@@ -798,70 +827,36 @@ body{
 .bottom .nav span{white-space:nowrap;font-size:11px}
 
 
-/* ONLY 12:01 PM and 04:31 PM live number animation */
-@keyframes liveNumberPulse {
-  0%,100% { transform:scale(1); opacity:1; }
-  50% { transform:scale(1.08); opacity:.78; }
+@keyframes blinkNumber{
+  0%,100%{opacity:1}
+  50%{opacity:.25}
 }
-#value1201, #value0431 {
-  animation:liveNumberPulse 1.2s ease-in-out infinite;
-  transform-origin:center;
-}
+.blink-number{animation:blinkNumber 1.4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.blink-number{animation:none}}
 
-/* Internet / Modern card styling */
-.market-box{
-  background:#fff;
-  margin:28px 28px 24px;
-  padding:28px 22px 24px;
-  border-radius:28px;
-  box-shadow:0 6px 24px rgba(0,0,0,.08);
+/* Greeting moving animation */
+.greeting-marquee{
+  margin:10px 15px 14px;
   overflow:hidden;
-}
-.market-head{
-  display:grid;
-  grid-template-columns:1.05fr 1fr 1fr;
-  column-gap:14px;
-  align-items:center;
-  padding:0 8px 12px;
-  font-weight:700;
-  color:#182033;
-  font-size:15px;
-}
-.market-row{
-  display:grid;
-  grid-template-columns:1.05fr 1fr 1fr;
-  column-gap:14px;
-  align-items:center;
-  margin-top:12px;
-}
-.market-time{
-  font-size:15px;
-  font-weight:600;
-  color:#182033;
-  padding-left:8px;
-}
-.market-value{
-  min-height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 8px;
+  white-space:nowrap;
   background:#fff;
-  border:1.5px solid #d7dbe2;
   border-radius:14px;
-  box-shadow:0 2px 7px rgba(0,0,0,.04);
-  font-size:20px;
-  font-weight:700;
-  color:#111827;
+  padding:9px 0;
+  box-shadow:0 3px 10px rgba(0,0,0,.06);
 }
-.market-value.loading{color:#6b7280}
-@media(max-width:520px){
-  .market-box{margin:24px 12px 20px;padding:24px 14px 20px;border-radius:24px}
-  .market-head,.market-row{grid-template-columns:1.05fr 1fr 1fr;column-gap:9px}
-  .market-head{font-size:13px;padding-left:4px;padding-right:4px}
-  .market-time{font-size:13px;padding-left:4px}
-  .market-value{min-height:48px;border-radius:12px;font-size:18px}
+.greeting-marquee span{
+  display:inline-block;
+  padding-left:100%;
+  font-size:16px;
+  font-weight:800;
+  color:#0757d9;
+  animation:greetingMove 12s linear infinite;
 }
+@keyframes greetingMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(-100%)}
+}
+@media (prefers-reduced-motion:reduce){.greeting-marquee span{animation:none;padding-left:0;text-align:center;width:100%}}
 </style>  </head>  <body>  <div class="header">    <div class="top">  <div class="logo"  
      data-my="🇲🇲 Myanmar 2D Stock"  
      data-en="🇲🇲 Myanmar 2D Stock">  
@@ -890,7 +885,7 @@ body{
     12:01 PM  
   </div>  
 
-  <div class="value"  
+  <div class="value blink-number"  
        id="value1201">  
     **  
   </div>  
@@ -908,7 +903,7 @@ body{
     04:31 PM  
   </div>  
 
-  <div class="value"  
+  <div class="value blink-number"  
        id="value0431">  
     **  
   </div>  
@@ -921,6 +916,9 @@ body{
 
   </div>  </div>
 
+  <div class="greeting-marquee" aria-label="Greeting Message">
+    <span id="greetingMessage">မင်္ဂလာပါ~ရွှင်လန်းချမ်းမြေ့ကြပါစေ</span>
+  </div>
   <div class="market-box">
     <div class="market-head">
       <div>TIME</div>
@@ -2178,150 +2176,68 @@ onValue(
 );  
   
   
-/* =========================  
-   2D HISTORY  
-========================= */  
-  
-onValue(  
- ref(  
-  db,  
-  "history"  
- ),  
- snapshot=>{  
-  
-  const data=  
-   snapshot.val();  
-  
-  
-  if(!data){  
-  
-   historyList.innerHTML=  
-    '<div class="empty-box">'+  
-    '<div class="empty-icon">📭</div>'+  
-    '<div style="font-size:17px;font-weight:700">'+  
-    t("noHistory")+  
-    '</div></div>';  
-  
-   return;  
-  
-  }  
-  
-  
-  const dates=  
-   Object.keys(data)  
-   .sort()  
-   .reverse();  
-  
-  
-  let html="";  
-  
-  
-  dates.forEach(date=>{  
-  
-   const day=  
-    data[date]||{};  
-  
-  
-   const parts=  
-    date.split("-");  
-  
-  
-   let displayDate=  
-    date;  
-  
-  
-   if(parts.length===3){  
-  
-    displayDate=  
-     parts[2]+"-"+  
-     parts[1]+"-"+  
-     parts[0];  
-  
-   }  
-  
-  
-   html+=  
-    '<div class="history-card">';  
-  
-  
-   html+=  
-    '<div class="history-date">📅 '+  
-    displayDate+  
-    '</div>';  
-  
-  
-   let found=false;  
-  
-  
-   [  
-    ["1201","12:01 PM"],  
-    ["0431","04:31 PM"]  
-   ].forEach(slot=>{  
-  
-    const value=  
-     day[slot[0]];  
-  
-  
-    if(  
-     value!==undefined &&  
-     value!==null &&  
-     value!==""  
-    ){  
-  
-     found=true;  
-  
-  
-     html+=`  
-  
-      <div class="result-row">  
-  
-       <div>  
-  
-        <div class="result-time">  
-         ${slot[1]}  
-        </div>  
-  
-        <div class="result-label">  
-         2D Result  
-        </div>  
-  
-       </div>  
-  
-       <div class="result-value">  
-        ${value}  
-       </div>  
-  
-      </div>  
-  
-     `;  
-  
-    }  
-  
-   });  
-  
-  
-   if(!found){  
-  
-    html+=  
-     '<div style="padding:15px;text-align:center;color:#7b8494">'+  
-     t("noResult")+  
-     '</div>';  
-  
-   }  
-  
-  
-   html+="</div>";  
-  
-  });  
-  
-  
-  historyList.innerHTML=  
-   html;  
-  
- }  
-);  
-  
-  
+/* =========================
+   2D HISTORY
+========================= */
+
+function getMyanmarDayName(dateString){
+ const parts=dateString.split("-");
+ if(parts.length!==3)return "";
+ const year=Number(parts[0]),month=Number(parts[1]),day=Number(parts[2]);
+ if(!Number.isInteger(year)||!Number.isInteger(month)||!Number.isInteger(day))return "";
+ const date=new Date(Date.UTC(year,month-1,day));
+ const days=["တနင်္ဂနွေ","တနင်္လာ","အင်္ဂါ","ဗုဒ္ဓဟူး","ကြာသပတေး","သောကြာ","စနေ"];
+ return days[date.getUTCDay()]||"";
+}
+
+onValue(
+ ref(db,"history"),
+ snapshot=>{
+  const data=snapshot.val();
+
+  if(!data){
+   historyList.innerHTML='<div class="empty-box"><div class="empty-icon">📭</div><div style="font-size:17px;font-weight:700">'+t("noHistory")+'</div></div>';
+   return;
+  }
+
+  const dates=Object.keys(data).sort().reverse();
+  let html="";
+
+  dates.forEach(date=>{
+   const day=data[date]||{};
+   const parts=date.split("-");
+   let displayDate=date;
+
+   if(parts.length===3){
+    displayDate=parts[2]+"-"+parts[1]+"-"+parts[0];
+   }
+
+   const dayName=getMyanmarDayName(date);
+   const value1201=day["1201"]!==undefined&&day["1201"]!==null&&day["1201"]!==""?day["1201"]:"--";
+   const value0431=day["0431"]!==undefined&&day["0431"]!==null&&day["0431"]!==""?day["0431"]:"--";
+
+   html+=`<div class="history-card">
+      <div class="history-date">📅 ${displayDate}${dayName ? " ( "+dayName+" ) Internet" : " Internet"}</div>
+      <div class="history-result">
+       <div class="history-result-item">
+        <div class="history-result-time">12:01 PM</div>
+        <div class="history-result-label">2D Result</div>
+        <div class="history-result-value">${value1201}</div>
+       </div>
+       <div class="history-result-item">
+        <div class="history-result-time">04:31 PM</div>
+        <div class="history-result-label">2D Result</div>
+        <div class="history-result-value">${value0431}</div>
+       </div>
+      </div>
+     </div>`;
+  });
+
+  historyList.innerHTML=html;
+ }
+);
+
+
 /* =========================  
    3D HISTORY  
 ========================= */  
@@ -3387,10 +3303,17 @@ updateNotificationUI();
 updateAboutText();  
   
 
-
 /* =========================
    INTERNET / MODERN LIVE DATA
 ========================= */
+onValue(ref(db,"greetingMessage"),snapshot=>{
+ const data=snapshot.val()||{};
+ const el=document.getElementById("greetingMessage");
+ if(el){
+  el.textContent=data.text&&String(data.text).trim()?data.text:"မင်္ဂလာပါ~ရွှင်လန်းချမ်းမြေ့ကြပါစေ";
+ }
+});
+
 onValue(ref(db,"internetModern"),snapshot=>{
  const data=snapshot.val()||{};
  const i0930=document.getElementById("internet0930");
@@ -3400,8 +3323,7 @@ onValue(ref(db,"internetModern"),snapshot=>{
 
  const setVal=(el,val)=>{
    if(!el)return;
-   const clean=val===undefined||val===null?"":String(val).trim();
-   el.textContent=(clean!=="" && clean!=="##")?clean:"--";
+   el.textContent=(val!==undefined && val!==null && val!=="")?val:"—";
    el.classList.remove("loading");
  };
 
@@ -3410,6 +3332,5 @@ onValue(ref(db,"internetModern"),snapshot=>{
  setVal(i0200,data["0200"]&&data["0200"].internet);
  setVal(m0200,data["0200"]&&data["0200"].modern);
 });
-
 </script>  </body>  
 </html>  
